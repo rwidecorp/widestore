@@ -15,6 +15,7 @@ import {
 import favicon from '../public/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
+import carouselStyles from 'react-multi-carousel/lib/styles.css';
 import {Layout} from '~/components/Layout';
 
 // This is important to avoid re-fetching root queries on sub-navigations
@@ -36,6 +37,7 @@ export function links() {
   return [
     {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
+    {rel: 'stylesheet', href: carouselStyles},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',

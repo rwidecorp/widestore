@@ -4,8 +4,26 @@
   --cart-aside-summary-height: 250px;
   --grid-item-width: 355px;
   --header-height: 64px;
-  --color-dark: #000;
+  --color-dark: #1b1a1d;
   --color-light: #fff;
+  --rose: #f72585ff;
+  --grape: #7209b7ff;
+  --zaffre: #3a0ca3ff;
+  --neon-blue: #4361eeff;
+}
+
+* {
+  color: var(--color-light);
+}
+
+body {
+  background: var(--color-dark);
+  color: var(--color-light);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
 }
 
 img {
@@ -18,7 +36,8 @@ img {
 * --------------------------------------------------
 */
 aside {
-  background: var(--color-light);
+  background: var(--color-dark);
+
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
   height: 100vh;
   max-width: var(--aside-width);
@@ -262,7 +281,7 @@ aside li {
 }
 
 .predictive-search-form {
-  background: var(--color-light);
+  background: var(--color-dark);
   position: sticky;
   top: 0;
 }
