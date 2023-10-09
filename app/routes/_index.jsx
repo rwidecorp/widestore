@@ -1,5 +1,4 @@
 import Carousel from '../components/Carousel';
-import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
 
 // loader fetches data before rendering the page
@@ -12,14 +11,7 @@ export async function loader({context}) {
 export default function Index() {
   const {collection} = useLoaderData();
   console.log(collection);
-  return (
-    <Carousel
-      items={[
-        {variants: {nodes: [{image: {url: ''}}]}},
-        ...collection.products.nodes,
-      ]}
-    />
-  );
+  return <Carousel items={collection.products.nodes} />;
 }
 
 const MICE_QUERY = `
