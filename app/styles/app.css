@@ -490,3 +490,76 @@ aside li {
 .account-logout {
   display: inline-block;
 }
+
+/*
+* --------------------------------------------------
+* assorted components
+* --------------------------------------------------
+*/
+
+.carousel-container {
+  height: calc(100vh - var(--header-height));
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.prev-button,
+.next-button {
+  position: absolute;
+  /* button clear styles */
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  /* button styles */
+  background: radial-gradient(circle, var(--color-dark) 0%, #2a282e 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  text-align: center;
+  color: var(--rose);
+  box-shadow: 0 0 18px var(--rose);
+  text-shadow: 0 0 18px var(--rose);
+}
+
+.prev-button {
+  left: 24px;
+}
+
+.next-button {
+  right: 24px;
+}
+
+.carousel-main-item {
+  width: 400px;
+  height: 400px;
+}
+
+.carousel-main-item-container {
+  width: 400px;
+  height: 400px;
+  opacity: 0;
+  transform: translateY(200px);
+}
+
+.index-container {
+  height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-image: url('../assets/home_backdrop.jpg');
+  background-size: cover;
+  background-position: center;
+}

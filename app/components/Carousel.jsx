@@ -1,111 +1,128 @@
-import ItemCarousel from 'react-multi-carousel';
 import {useState, useEffect} from 'react';
-
-const CustomButtonGroup = ({
-  next,
-  previous,
-  goToSlide,
-  setCurrentIndex,
-  ...rest
-}) => {
-  const {
-    carouselState: {currentSlide, totalItems, slidesToShow},
-  } = rest;
-
-  useEffect(() => {
-    next();
-  }, []);
-
-  useEffect(() => {
-    console.log(currentSlide % totalItems);
-    setCurrentIndex(currentSlide % totalItems);
-  }, [currentSlide]);
-  return (
-    <div className="carousel-button-group">
-      <button
-        onClick={() => {
-          if (currentSlide > 1) previous();
-        }}
-      >
-        {'<'}
-      </button>
-      <button
-        onClick={() => {
-          next();
-        }}
-      >
-        {'>'}
-      </button>
-    </div>
-  );
-};
+import {motion, AnimatePresence} from 'framer-motion';
+import {Link} from '@remix-run/react';
 
 export default function Carousel({items}) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const responsive = {
-    desktop: {
-      breakpoint: {max: 3000, min: 1024},
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: {max: 1024, min: 464},
-      items: 2,
-      slidesToSlide: 2, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: {max: 464, min: 0},
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
+  const [trigger, setTrigger] = useState(false);
+
+  const prevItem = () => {
+    if (currentIndex === 0) {
+      setTrigger(true);
+      setTimeout(() => {
+        setTrigger(false);
+        setCurrentIndex(items.length - 1);
+      }, 200);
+    } else {
+      setTrigger(true);
+      setTimeout(() => {
+        setTrigger(false);
+        setCurrentIndex(currentIndex - 1);
+      }, 200);
+    }
+  };
+
+  const nextItem = () => {
+    if (currentIndex === items.length - 1) {
+      setTrigger(true);
+      setTimeout(() => {
+        setTrigger(false);
+        setCurrentIndex(0);
+      }, 200);
+    } else {
+      setTrigger(true);
+      setTimeout(() => {
+        setTrigger(false);
+
+        setCurrentIndex(currentIndex + 1);
+      }, 200);
+    }
   };
 
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '85vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <ItemCarousel
-        responsive={responsive}
-        centerMode
-        arrows={false}
-        containerClass="carousel-container"
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-        renderButtonGroupOutside={true}
-        customButtonGroup={
-          <CustomButtonGroup setCurrentIndex={setCurrentIndex} />
-        }
+    <div className="carousel-container">
+      <button className="prev-button" onClick={() => prevItem()}>
+        {'<'}
+      </button>
+      <button className="next-button" onClick={() => nextItem()}>
+        {'>'}
+      </button>
+      <div>
+        <h1>{items[currentIndex].title}</h1>
+      </div>
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+        }}
       >
-        {items.map((item, index) => (
-          <div
-            key={item.id}
+        <AnimatePresence>
+          <motion.div
+            animate={{opacity: trigger ? 0 : [0, 1], y: trigger ? -200 : 0}}
+            key={currentIndex - 1}
+            style={{width: 300, height: 300, opacity: 1, y: 200}}
+          >
+            <img
+              src={
+                items[currentIndex === 0 ? items.length - 1 : currentIndex - 1]
+                  .variants.nodes[0].image.url
+              }
+              style={{width: 240, height: 240}}
+            />
+          </motion.div>
+        </AnimatePresence>
+        <AnimatePresence>
+          <motion.div
+            key={currentIndex}
+            animate={{opacity: trigger ? 0 : 1, y: trigger ? 200 : 0}}
             style={{
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              alignItems: 'center',
+              width: 400,
+              height: 400,
+              opacity: 0,
+              y: -200,
             }}
           >
-            {' '}
-            {item.variants.nodes[0].image.url !== '' && (
-              <img
-                src={item.variants.nodes[0].image.url}
-                style={{
-                  width: currentIndex === index ? 400 : 300,
-                  height: currentIndex === index ? 400 : 300,
-                  objectFit: 'contain',
-                }}
-              />
-            )}
-          </div>
-        ))}
-      </ItemCarousel>
+            <img
+              src={items[currentIndex].variants.nodes[0].image.url}
+              style={{width: 400, height: 400}}
+            />
+          </motion.div>
+        </AnimatePresence>
+        <AnimatePresence>
+          <motion.div
+            key={currentIndex + 1}
+            animate={{opacity: trigger ? 0 : [0, 1], y: trigger ? -200 : 0}}
+            style={{
+              width: 300,
+              height: 300,
+              opacity: 1,
+              y: 200,
+              position: 'relative',
+            }}
+          >
+            <img
+              src={
+                items[currentIndex === items.length - 1 ? 0 : currentIndex + 1]
+                  .variants.nodes[0].image.url
+              }
+              style={{width: 240, height: 240}}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <a>learn more</a>
+        <Link>View Product</Link>
+      </div>
     </div>
   );
 }

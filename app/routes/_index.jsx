@@ -1,6 +1,6 @@
 import Carousel from '../components/Carousel';
-import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
+import homeBackground from '../assets/home_backdrop.jpg';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -11,14 +11,10 @@ export async function loader({context}) {
 
 export default function Index() {
   const {collection} = useLoaderData();
-  console.log(collection);
   return (
-    <Carousel
-      items={[
-        {variants: {nodes: [{image: {url: ''}}]}},
-        ...collection.products.nodes,
-      ]}
-    />
+    <div className="index-container">
+      <Carousel items={collection.products.nodes} />
+    </div>
   );
 }
 
