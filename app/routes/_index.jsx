@@ -1,5 +1,6 @@
 import Carousel from '../components/Carousel';
 import {useLoaderData} from '@remix-run/react';
+import homeBackground from '../assets/home_backdrop.jpg';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -10,8 +11,11 @@ export async function loader({context}) {
 
 export default function Index() {
   const {collection} = useLoaderData();
-  console.log(collection);
-  return <Carousel items={collection.products.nodes} />;
+  return (
+    <div className="index-container">
+      <Carousel items={collection.products.nodes} />
+    </div>
+  );
 }
 
 const MICE_QUERY = `
