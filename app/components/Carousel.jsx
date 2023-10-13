@@ -1,10 +1,13 @@
 import {useState, useEffect} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {Link} from '@remix-run/react';
+import {CartForm} from '@shopify/hydrogen';
 
-export default function Carousel({items}) {
+export default function Carousel({items, collection}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [trigger, setTrigger] = useState(false);
+
+  console.log(items);
 
   const prevItem = () => {
     if (currentIndex === 0) {
@@ -121,7 +124,34 @@ export default function Carousel({items}) {
         }}
       >
         <a>learn more</a>
-        <Link>View Product</Link>
+        <Link to={`/products/${items[currentIndex].handle}`}>
+          View Collection
+        </Link>
+        <CartForm
+          route="/cart"
+          inputs={{
+            lines: [
+              {
+                merchandiseId: items[currentIndex].variants.nodes[0].id,
+              },
+            ],
+          }}
+          action={CartForm.ACTIONS.LinesAdd}
+        >
+          {(fetcher) => (
+            <>
+              <button
+                type="submit"
+                onClick={() => {
+                  window.location.href = window.location.href + '#cart-aside';
+                }}
+                className="border border-black rounded-sm w-full px-4 py-2 text-white bg-black uppercase hover:bg-white hover:text-black transition-colors duration-150"
+              >
+                'Add to cart'
+              </button>
+            </>
+          )}
+        </CartForm>
       </div>
     </div>
   );
