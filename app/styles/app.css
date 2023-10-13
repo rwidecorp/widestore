@@ -19,10 +19,6 @@
   src: url('../public/SpaceGrotesk.ttf');
 }
 
-* {
-  color: var(--color-light);
-}
-
 body {
   background: var(--color-dark);
   color: var(--color-light);

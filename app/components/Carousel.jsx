@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {Link} from '@remix-run/react';
 import {CartForm} from '@shopify/hydrogen';
-import SmokeElement from 'smoke-effect-react';
 
 export default function Carousel({items, collection}) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -43,12 +42,6 @@ export default function Carousel({items, collection}) {
 
   return (
     <div className="carousel-container">
-      <SmokeElement
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/95637/quickText.png"
-        opacity="1"
-        smokeSrc="https://s3-us-west-2.amazonaws.com/s.cdpn.io/95637/Smoke-Element.png"
-        smokeOpacity="0.3"
-      />
       <button className="prev-button" onClick={() => prevItem()}>
         {'<'}
       </button>
