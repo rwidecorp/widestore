@@ -7,8 +7,6 @@ export default function Carousel({items, collection}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [trigger, setTrigger] = useState(false);
 
-  console.log(items);
-
   const prevItem = () => {
     if (currentIndex === 0) {
       setTrigger(true);
