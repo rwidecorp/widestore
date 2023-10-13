@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {Link} from '@remix-run/react';
 import {CartForm} from '@shopify/hydrogen';
+import { IconContext } from "react-icons";
+import {BsCaretLeftFill} from 'react-icons/bs'
 
 export default function Carousel({items, collection}) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -43,7 +45,7 @@ export default function Carousel({items, collection}) {
   return (
     <div className="carousel-container">
       <button className="prev-button" onClick={() => prevItem()}>
-        {'<'}
+      <BsCaretLeftFill className="button-content"/>
       </button>
       <button className="next-button" onClick={() => nextItem()}>
         {'>'}

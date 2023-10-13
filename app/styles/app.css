@@ -12,10 +12,6 @@
   --neon-blue: #4361eeff;
 }
 
-* {
-  color: var(--color-light);
-}
-
 body {
   background: var(--color-dark);
   color: var(--color-light);
@@ -530,6 +526,7 @@ aside li {
   color: var(--rose);
   box-shadow: 0 0 18px var(--rose);
   text-shadow: 0 0 18px var(--rose);
+  z-index: 1;
 }
 
 .prev-button {
@@ -563,3 +560,4 @@ aside li {
   background-size: cover;
   background-position: center;
 }
+
