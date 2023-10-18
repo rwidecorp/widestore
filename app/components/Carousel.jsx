@@ -1,7 +1,9 @@
 import {useState, useEffect} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
+import {Link} from '@remix-run/react';
+import {CartForm} from '@shopify/hydrogen';
 
-export default function Carousel({items}) {
+export default function Carousel({items, collection}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [trigger, setTrigger] = useState(false);
 
@@ -23,28 +25,35 @@ export default function Carousel({items}) {
 
   const nextItem = () => {
     if (currentIndex === items.length - 1) {
-      setCurrentIndex(0);
+      setTrigger(true);
+      setTimeout(() => {
+        setTrigger(false);
+        setCurrentIndex(0);
+      }, 200);
     } else {
-      setCurrentIndex(currentIndex + 1);
+      setTrigger(true);
+      setTimeout(() => {
+        setTrigger(false);
+
+        setCurrentIndex(currentIndex + 1);
+      }, 200);
     }
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        overflow: 'hidden',
-      }}
-    >
+    <div className="carousel-container">
+      <button className="prev-button" onClick={() => prevItem()}>
+        {'<'}
+      </button>
+      <button className="next-button" onClick={() => nextItem()}>
+        {'>'}
+      </button>
       <div>
         <h1>{items[currentIndex].title}</h1>
       </div>
       <div
         style={{
-          width: '100',
+          width: '100%',
           display: 'flex',
           justifyContent: 'space-around',
           alignItems: 'center',
@@ -52,7 +61,7 @@ export default function Carousel({items}) {
       >
         <AnimatePresence>
           <motion.div
-            animate={{opacity: trigger ? 0 : 1, y: trigger ? -200 : 0}}
+            animate={{opacity: trigger ? 0 : [0, 1], y: trigger ? -200 : 0}}
             key={currentIndex - 1}
             style={{width: 300, height: 300, opacity: 1, y: 200}}
           >
@@ -74,7 +83,6 @@ export default function Carousel({items}) {
               height: 400,
               opacity: 0,
               y: -200,
-              margin: '0 100px',
             }}
           >
             <img
@@ -86,7 +94,7 @@ export default function Carousel({items}) {
         <AnimatePresence>
           <motion.div
             key={currentIndex + 1}
-            animate={{opacity: trigger ? 0 : 1, y: trigger ? -200 : 0}}
+            animate={{opacity: trigger ? 0 : [0, 1], y: trigger ? -200 : 0}}
             style={{
               width: 300,
               height: 300,
@@ -105,11 +113,43 @@ export default function Carousel({items}) {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div>
-        <button onClick={() => prevItem()}>previous</button>
-        <button onClick={() => nextItem()}>next</button>
-        <p>button</p>
-        <p>button</p>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <a>learn more</a>
+        <Link to={`/products/${items[currentIndex].handle}`}>
+          View Collection
+        </Link>
+        <CartForm
+          route="/cart"
+          inputs={{
+            lines: [
+              {
+                merchandiseId: items[currentIndex].variants.nodes[0].id,
+              },
+            ],
+          }}
+          action={CartForm.ACTIONS.LinesAdd}
+        >
+          {(fetcher) => (
+            <>
+              <button
+                type="submit"
+                onClick={() => {
+                  window.location.href = window.location.href + '#cart-aside';
+                }}
+                className="border border-black rounded-sm w-full px-4 py-2 text-white bg-black uppercase hover:bg-white hover:text-black transition-colors duration-150"
+              >
+                'Add to cart'
+              </button>
+            </>
+          )}
+        </CartForm>
       </div>
     </div>
   );
