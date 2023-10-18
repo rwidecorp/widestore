@@ -3,6 +3,7 @@ import {motion, AnimatePresence} from 'framer-motion';
 import {Link} from '@remix-run/react';
 import {CartForm} from '@shopify/hydrogen';
 import { IconContext } from "react-icons";
+import {BsCaretRightFill} from 'react-icons/bs'
 import {BsCaretLeftFill} from 'react-icons/bs'
 
 export default function Carousel({items, collection}) {
@@ -44,12 +45,20 @@ export default function Carousel({items, collection}) {
 
   return (
     <div className="carousel-container">
-      <button className="prev-button" onClick={() => prevItem()}>
-      <BsCaretLeftFill className="button-content"/>
-      </button>
-      <button className="next-button" onClick={() => nextItem()}>
-        {'>'}
-      </button>
+      <motion.button className="prev-button" 
+      onClick={() => prevItem()}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: "tween", duration: 0.05}}>
+      <BsCaretLeftFill className='button-content'/>
+      </motion.button>
+      <motion.button className="next-button" 
+      onClick={() => nextItem()}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: "tween", duration: 0.05}}>
+      <BsCaretRightFill className='button-content'/>
+      </motion.button>
       <div>
         <h1>{items[currentIndex].title}</h1>
       </div>
@@ -123,9 +132,8 @@ export default function Carousel({items, collection}) {
           alignItems: 'center',
         }}
       >
-        <a>learn more</a>
         <Link to={`/products/${items[currentIndex].handle}`}>
-          View Collection
+          Learn More
         </Link>
         <CartForm
           route="/cart"

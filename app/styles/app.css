@@ -6,7 +6,7 @@
   --header-height: 64px;
   --color-dark: #1b1a1d;
   --color-light: #ededed;
-  --rose: #f72585ff;
+  --rose: #f72585;
   --grape: #7209b7ff;
   --zaffre: #3a0ca3ff;
   --neon-blue: #4361eeff;
@@ -534,18 +534,38 @@ aside li {
   width: 32px;
   height: 32px;
   text-align: center;
-  color: var(--rose);
   box-shadow: 0 0 18px var(--rose);
-  text-shadow: 0 0 18px var(--rose);
   z-index: 1;
+  border-radius: 50%;
+}
+
+.prev-button:active,
+.next-button:active {
+  box-shadow: 0 0 12px var(--rose);
+  background: radial-gradient(circle, var(--color-dark) 0%, #1e1d20 100%);
 }
 
 .prev-button {
-  left: 24px;
+  left: 36px;
 }
 
 .next-button {
-  right: 24px;
+  right: 36px;
+}
+
+.button-content{
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  color: var(--rose);
+  padding: 8px; 
+  background-color: rgba(255, 0, 0, 0); 
+  border-radius: 50%;
+}
+
+.button-content:active {
+  opacity: 0.8;
+  scale: 0.9;
 }
 
 .carousel-main-item {
