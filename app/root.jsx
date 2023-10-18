@@ -57,6 +57,7 @@ export function links() {
       rel: 'preconnect',
       href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk',
     },
+
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }

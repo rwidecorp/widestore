@@ -1,8 +1,16 @@
 import {json} from '@shopify/remix-oxygen';
 import ProductOptions from '~/components/ProductOptions';
 import {useLoaderData} from '@remix-run/react';
-import {Image, Money, ShopPayButton} from '@shopify/hydrogen-react';
+import {
+  Image,
+  Money,
+  ShopPayButton,
+  MediaFile,
+  ModelViewer,
+} from '@shopify/hydrogen-react';
 import {CartForm} from '@shopify/hydrogen';
+import ProductInfoContainer from '~/components/ProductInfoContainer';
+import AddToCartContainer from '~/components/AddToCartContainer';
 
 export async function loader({params, context, request}) {
   const {handle} = params;
@@ -47,9 +55,19 @@ export const handle = {
 export default function ProductHandle() {
   const {product, selectedVariant, shop} = useLoaderData();
 
+  console.log({product});
+
   return (
-    <section className="w-full gap-4 md:gap-8 grid px-6 md:px-8 lg:px-12">
-      <div className="grid items-start gap-6 lg:gap-20 md:grid-cols-2 lg:grid-cols-3">
+    <section className="product-section">
+      <div className="product-header-container">
+        <img src={product.featuredImage.url} style={{width: 400}} />
+      </div>
+      <section className="main-content-container container">
+        <ProductInfoContainer title={product.title} />
+        <AddToCartContainer shop={shop} selectedVariant={selectedVariant} />
+      </section>
+      <section className="tech-specs-section"></section>
+      {/* <div className="grid items-start gap-6 lg:gap-20 md:grid-cols-2 lg:grid-cols-3">
         <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-2">
           <div className="md:col-span-2 snap-center card-image aspect-square md:w-full w-[80vw] shadow rounded">
             <Image
@@ -125,7 +143,7 @@ export default function ProductHandle() {
             dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
           ></div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
@@ -140,6 +158,32 @@ const PRODUCT_QUERY = `#graphql
     product(handle: $handle) {
       id
       title
+      media(first: 100) {
+        nodes {
+          ... on Model3d {
+            mediaContentType
+            __typename
+            id
+            alt
+            presentation{
+              asJson(format: MODEL_VIEWER)
+              id
+            }
+            previewImage{
+              altText
+              height
+              url
+              width
+            }
+            sources{
+              filesize
+              format
+              mimeType
+              url
+            }
+          }
+        }
+      }
       handle
       vendor
       description
