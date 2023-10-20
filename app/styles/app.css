@@ -5,25 +5,33 @@
   --grid-item-width: 355px;
   --header-height: 64px;
   --color-dark: #1b1a1d;
-  --color-light: #fff;
-  --rose: #f72585ff;
+  --color-light: #ededed;
+  --rose: #f72585;
   --grape: #7209b7ff;
   --zaffre: #3a0ca3ff;
   --neon-blue: #4361eeff;
 }
 
-* {
-  color: var(--color-light);
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../public/SpaceGrotesk.ttf');
 }
 
 body {
   background: var(--color-dark);
   color: var(--color-light);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; */
+  font-family: 'Space Grotesk', monospace;
   font-size: 16px;
   line-height: 1.5;
   margin: 0;
+}
+
+a {
+  color: var(--color-light);
 }
 
 img {
@@ -519,25 +527,86 @@ aside li {
   cursor: pointer;
   outline: inherit;
   /* button styles */
-  background: radial-gradient(circle, var(--color-dark) 0%, #2a282e 100%);
+  background: var(--color-dark);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 38px;
+  height: 38px;
   text-align: center;
-  color: var(--rose);
-  box-shadow: 0 0 18px var(--rose);
-  text-shadow: 0 0 18px var(--rose);
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.prev-button:active,
+.next-button:active {
+  background: radial-gradient(circle, var(--color-dark) 0%, #1e1d20 100%);
 }
 
 .prev-button {
-  left: 24px;
+  left: 3vw;
 }
 
 .next-button {
-  right: 24px;
+  right: 3vw;
+}
+
+.button-content{
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  color: var(--rose);
+  padding: 8px; 
+  border-radius: 4px;
+  scale: 1.25;
+}
+
+.button-content:active {
+  opacity: 0.75;
+}
+
+.button-reset {
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.add-to-cart-button {
+  height: 42px;
+  width: 130px;
+  border-radius: 4px;
+  background-color: var(--rose);
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 12px;
+}
+
+.add-to-cart-button:active {
+  opacity: 0.75;
+}
+
+.learn-more-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-dark);
+  border-radius: 4px;
+  height: 36px;
+  width: 110px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.learn-more-content:hover{
+  text-decoration: none;
+}
+
+.learn-more-content:active{
+  opacity: 0.75;
 }
 
 .carousel-main-item {
@@ -563,3 +632,4 @@ aside li {
   background-size: cover;
   background-position: center;
 }
+
