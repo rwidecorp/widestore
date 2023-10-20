@@ -48,14 +48,14 @@ export default function Carousel({items, collection}) {
       <motion.button className="prev-button" 
       onClick={() => prevItem()}
       whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
+      whileTap={{ scale: 1 }}
       transition={{ type: "tween", duration: 0.05}}>
       <BsCaretLeftFill className='button-content'/>
       </motion.button>
       <motion.button className="next-button" 
       onClick={() => nextItem()}
       whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
+      whileTap={{ scale: 1 }}
       transition={{ type: "tween", duration: 0.05}}>
       <BsCaretRightFill className='button-content'/>
       </motion.button>
@@ -132,9 +132,14 @@ export default function Carousel({items, collection}) {
           alignItems: 'center',
         }}
       >
-        <Link to={`/products/${items[currentIndex].handle}`}>
+        <motion.div className='button-reset learn-more-button'
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 1 }}
+            transition={{ type: "tween", duration: 0.05}}>
+        <Link className='learn-more-content' to={`/products/${items[currentIndex].handle}`}>
           Learn More
         </Link>
+        </motion.div>
         <CartForm
           route="/cart"
           inputs={{
@@ -148,15 +153,20 @@ export default function Carousel({items, collection}) {
         >
           {(fetcher) => (
             <>
+            <motion.div 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 1 }}
+            transition={{ type: "tween", duration: 0.05}}>
               <button
-                type="submit"
-                onClick={() => {
-                  window.location.href = window.location.href + '#cart-aside';
-                }}
-                className="border border-black rounded-sm w-full px-4 py-2 text-white bg-black uppercase hover:bg-white hover:text-black transition-colors duration-150"
-              >
-                'Add to cart'
-              </button>
+            className="button-reset add-to-cart-button"
+            type="submit"
+            onClick={() => {
+              window.location.href = window.location.href + '#cart-aside';
+            }}
+          >
+            Add to cart
+          </button>
+          </motion.div>
             </>
           )}
         </CartForm>
