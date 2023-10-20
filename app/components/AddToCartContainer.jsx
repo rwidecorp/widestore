@@ -22,6 +22,7 @@ function AddToCartContainer({selectedVariant, shop}) {
             >
               <div>
                 <input
+                  className="add-to-cart-color-radio-input"
                   type="radio"
                   id="grey"
                   name="color"
@@ -32,6 +33,7 @@ function AddToCartContainer({selectedVariant, shop}) {
               </div>
               <div>
                 <input
+                  className="add-to-cart-color-radio-input"
                   type="radio"
                   id="blue"
                   name="color"
@@ -42,6 +44,7 @@ function AddToCartContainer({selectedVariant, shop}) {
               </div>
               <div>
                 <input
+                  className="add-to-cart-color-radio-input"
                   type="radio"
                   id="black"
                   name="color"

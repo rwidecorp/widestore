@@ -11,6 +11,11 @@ import {
 import {CartForm} from '@shopify/hydrogen';
 import ProductInfoContainer from '~/components/ProductInfoContainer';
 import AddToCartContainer from '~/components/AddToCartContainer';
+import {
+  BsGripHorizontal,
+  BsFillPhoneVibrateFill,
+  BsFillWrenchAdjustableCircleFill,
+} from 'react-icons/bs';
 
 export async function loader({params, context, request}) {
   const {handle} = params;
@@ -66,7 +71,36 @@ export default function ProductHandle() {
         <ProductInfoContainer title={product.title} />
         <AddToCartContainer shop={shop} selectedVariant={selectedVariant} />
       </section>
-      <section className="tech-specs-section"></section>
+      <section className="tech-specs-section">
+        <div className="container">
+          <div className="column tech-specs-column">
+            <BsGripHorizontal className="tech-specs-icon" />
+            <h3>Adaptive Grip Technology</h3>
+            <p>
+              Equipped with an innovative Adaptive Grip Technology, a
+              cutting-edge feature that adjusts the mouse's surface texture and
+              grip in real-time
+            </p>
+          </div>
+          <div className="column tech-specs-column">
+            <BsFillPhoneVibrateFill className="tech-specs-icon" />
+            <h3>Haptic Feedback Immersion</h3>
+            <p>
+              Incorporates haptic feedback motors that respond to in-game
+              events, delivering tactile sensations that enhance your gaming
+              experience.
+            </p>
+          </div>
+          <div className="column tech-specs-column">
+            <BsFillWrenchAdjustableCircleFill className="tech-specs-icon" />
+            <h3>Customizable Weight Balancing</h3>
+            <p>
+              Offers a unique weight-balancing system that lets you fine-tune
+              the mouse's weight distribution to your preference.
+            </p>
+          </div>
+        </div>
+      </section>
       {/* <div className="grid items-start gap-6 lg:gap-20 md:grid-cols-2 lg:grid-cols-3">
         <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-2">
           <div className="md:col-span-2 snap-center card-image aspect-square md:w-full w-[80vw] shadow rounded">
