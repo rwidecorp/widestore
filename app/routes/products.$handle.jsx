@@ -11,6 +11,7 @@ import {
 import {CartForm} from '@shopify/hydrogen';
 import ProductInfoContainer from '~/components/ProductInfoContainer';
 import AddToCartContainer from '~/components/AddToCartContainer';
+import {useState} from 'react';
 
 export async function loader({params, context, request}) {
   const {handle} = params;
@@ -54,16 +55,20 @@ export const handle = {
 
 export default function ProductHandle() {
   const {product, selectedVariant, shop} = useLoaderData();
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState(null);
 
-  console.log({product});
+  const media3d = product.media.nodes[1];
 
   return (
     <section className="product-section">
       <div className="product-header-container">
-        <img src={product.featuredImage.url} style={{width: 400}} />
+        <ModelViewer data={media3d} style={{width: '100vw', height: '35vh'}} />
       </div>
       <section className="main-content-container container">
         <ProductInfoContainer title={product.title} />
+
         <AddToCartContainer shop={shop} selectedVariant={selectedVariant} />
       </section>
       <section className="tech-specs-section"></section>
@@ -176,6 +181,7 @@ const PRODUCT_QUERY = `#graphql
               width
             }
             sources{
+              __typename
               filesize
               format
               mimeType
