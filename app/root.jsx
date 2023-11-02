@@ -57,7 +57,10 @@ export function links() {
       rel: 'preconnect',
       href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk',
     },
-
+    {
+      rel: 'preconnect',
+      href: 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js',
+    },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
@@ -113,6 +116,7 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+
         <Meta />
         <Links />
       </head>
