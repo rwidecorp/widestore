@@ -11,6 +11,12 @@ export default async function handleRequest(
 ) {
   const {nonce, header, NonceProvider} = createContentSecurityPolicy({
     scriptSrc: ["'self'", 'https://unpkg.com', 'https://cdn.shopify.com'],
+    connectSrc: [
+      "'self'",
+      'https://shopify.com',
+      'https://unpkg.com',
+      'https://cdn.shopify.com',
+    ],
   });
 
   const body = await renderToReadableStream(
