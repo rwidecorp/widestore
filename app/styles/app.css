@@ -749,3 +749,16 @@ aside li {
     min-width: 240px;
   }
 }
+
+/* carousel responsive */
+
+.side-img{
+  transition: .25s;
+}
+
+@media screen and (max-width: 1100px) {
+  .side-img{
+    transition: .25s;
+    opacity: 0;
+  }
+}
