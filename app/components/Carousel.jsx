@@ -71,12 +71,13 @@ export default function Carousel({items, collection}) {
         }}
       >
         <AnimatePresence>
-          <motion.div
+          <motion.div 
             animate={{opacity: trigger ? 0 : [0, 1], y: trigger ? -200 : 0}}
             key={currentIndex - 1}
-            style={{width: 300, height: 300, opacity: 1, y: 200}}
+            style={{width: 300, height: 300, opacity: 1, y: 200, display: 'flex', justifyContent: 'center', alignItems: 'center'}}
           >
             <img
+              className='side-img'
               src={
                 items[currentIndex === 0 ? items.length - 1 : currentIndex - 1]
                   .variants.nodes[0].image.url
@@ -93,7 +94,7 @@ export default function Carousel({items, collection}) {
               width: 400,
               height: 400,
               opacity: 0,
-              y: -200,
+              y: -200
             }}
           >
             <img
@@ -102,8 +103,9 @@ export default function Carousel({items, collection}) {
             />
           </motion.div>
         </AnimatePresence>
-        <AnimatePresence>
+        <AnimatePresence >
           <motion.div
+          
             key={currentIndex + 1}
             animate={{opacity: trigger ? 0 : [0, 1], y: trigger ? -200 : 0}}
             style={{
@@ -111,10 +113,11 @@ export default function Carousel({items, collection}) {
               height: 300,
               opacity: 1,
               y: 200,
-              position: 'relative',
+              position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center'
             }}
           >
             <img
+              className='side-img'
               src={
                 items[currentIndex === items.length - 1 ? 0 : currentIndex + 1]
                   .variants.nodes[0].image.url
