@@ -10,6 +10,7 @@ export async function loader({context}) {
 
 export default function Index() {
   const {collection} = useLoaderData();
+  console.log(collection);
   return (
     <div className="index-container">
       <Carousel items={collection.products.nodes} collection={collection} />
@@ -19,7 +20,7 @@ export default function Index() {
 
 const MICE_QUERY = `
 query Collection {
-  collection(handle: "mice") {
+  collection(handle: "complete-mice") {
     description
     handle
     products(first: 100) {
