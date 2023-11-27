@@ -70,10 +70,11 @@ function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+      {/* Commenting out, we don't have account management currently, and search is not implemented */}
+      {/* <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         {isLoggedIn ? 'Account' : 'Sign in'}
       </NavLink>
-      <SearchToggle />
+      <SearchToggle /> */}
       <CartToggle cart={cart} />
     </nav>
   );
