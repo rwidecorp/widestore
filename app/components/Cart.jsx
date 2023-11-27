@@ -109,6 +109,8 @@ function CartCheckoutActions({checkoutUrl}) {
   );
 }
 
+// Cart summary container
+
 export function CartSummary({cost, layout, children = null}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
@@ -142,7 +144,7 @@ function CartLineRemoveButton({lineIds}) {
     </CartForm>
   );
 }
-
+// Cart buttons
 function CartLineQuantity({line}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity} = line;
