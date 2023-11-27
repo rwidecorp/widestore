@@ -12,7 +12,6 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
 } from '@remix-run/react';
-import favicon from '../public/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
 import {Layout} from '~/components/Layout';
@@ -61,7 +60,6 @@ export function links() {
       rel: 'preconnect',
       href: 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
 
