@@ -6,7 +6,7 @@
   --header-height: 64px;
   --header-background: #242226;
   --color-dark: #1b1a1d;
-  --color-light: #ededed;
+  --color-light: #dedede;
   --rose: #f72585ff;
   --grape: #7209b7ff;
   --zaffre: #3a0ca3ff;
@@ -659,7 +659,7 @@ aside li {
 }
 
 .product-header-container {
-  width: 100vw;
+  /* width: 100vw;
   height: 35vh;
   min-height: 400px;
   max-height: 800px;
@@ -668,7 +668,7 @@ aside li {
   background-position: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 .container {
