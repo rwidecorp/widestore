@@ -631,6 +631,10 @@ aside li {
   width: 400px;
   height: 400px;
 }
+.main-carousel-image {
+  width: 400px;
+  height: 400px;
+}
 
 .carousel-main-item-container {
   width: 400px;
@@ -748,17 +752,22 @@ aside li {
   .customize-and-add-to-cart-container {
     min-width: 240px;
   }
+  .main-carousel-image {
+    width: 90vw;
+    height: 300px;
+    object-fit: contain;
+  }
 }
 
 /* carousel responsive */
 
-.side-img{
-  transition: .25s;
+.side-img {
+  transition: 0.25s;
 }
 
 @media screen and (max-width: 1100px) {
-  .side-img{
-    transition: .25s;
+  .side-img {
+    transition: 0.25s;
     opacity: 0;
   }
 }

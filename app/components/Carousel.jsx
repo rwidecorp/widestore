@@ -64,7 +64,7 @@ export default function Carousel({items, collection}) {
         <BsCaretRightFill className="button-content" />
       </motion.button>
       <div>
-        <h1>
+        <h1 style={{fontSize: '40px', letterSpacing: 2.5}}>
           {items[currentIndex].title.charAt(0).toUpperCase() +
             items[currentIndex].title.slice(1)}
         </h1>
@@ -78,13 +78,21 @@ export default function Carousel({items, collection}) {
         }}
       >
         <AnimatePresence>
-          <motion.div 
+          <motion.div
             animate={{opacity: trigger ? 0 : [0, 1], y: trigger ? -200 : 0}}
             key={currentIndex - 1}
-            style={{width: 300, height: 300, opacity: 1, y: 200, display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+            style={{
+              width: 300,
+              height: 300,
+              opacity: 1,
+              y: 200,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
           >
             <img
-              className='side-img'
+              className="side-img"
               src={
                 items[currentIndex === 0 ? items.length - 1 : currentIndex - 1]
                   .variants.nodes[0].image.url
@@ -101,18 +109,18 @@ export default function Carousel({items, collection}) {
               width: 400,
               height: 400,
               opacity: 0,
-              y: -200
+              y: -200,
             }}
           >
+            {console.log(items[currentIndex])}
             <img
               src={items[currentIndex].variants.nodes[0].image.url}
-              style={{width: 400, height: 400}}
+              className="main-carousel-image"
             />
           </motion.div>
         </AnimatePresence>
-        <AnimatePresence >
+        <AnimatePresence>
           <motion.div
-          
             key={currentIndex + 1}
             animate={{opacity: trigger ? 0 : [0, 1], y: trigger ? -200 : 0}}
             style={{
@@ -120,11 +128,14 @@ export default function Carousel({items, collection}) {
               height: 300,
               opacity: 1,
               y: 200,
-              position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center'
+              position: 'relative',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <img
-              className='side-img'
+              className="side-img"
               src={
                 items[currentIndex === items.length - 1 ? 0 : currentIndex + 1]
                   .variants.nodes[0].image.url
