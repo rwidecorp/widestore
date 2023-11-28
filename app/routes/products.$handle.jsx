@@ -92,7 +92,7 @@ export default function ProductHandle() {
           }}
           ar
           ar-modes="webxr scene-viewer quick-look"
-          environment-image={require('../../public/neon_room3.jpg')}
+          // environment-image={require('../../public/neon_room3.jpg')}
           skybox-image={require('../../public/neon_room3.jpeg')}
         />
       </div>
