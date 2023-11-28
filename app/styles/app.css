@@ -8,6 +8,7 @@
   --color-dark: #1b1a1d;
   --color-light: #dedede;
   --rose: #f72585ff;
+  --rose-hover: #e90069;
   --grape: #7209b7ff;
   --zaffre: #3a0ca3ff;
   --neon-blue: #4361eeff;
@@ -602,8 +603,12 @@ aside li {
   margin-top: 12px;
 }
 
-.add-to-cart-button:active {
+/* .add-to-cart-button:active {
   opacity: 0.75;
+} */
+
+.add-to-cart-button:hover {
+  background-color: var(--rose-hover);
 }
 
 .learn-more-button {
@@ -752,13 +757,13 @@ aside li {
 
 /* carousel responsive */
 
-.side-img{
-  transition: .25s;
+.side-img {
+  transition: 0.25s;
 }
 
 @media screen and (max-width: 1100px) {
-  .side-img{
-    transition: .25s;
+  .side-img {
+    transition: 0.25s;
     opacity: 0;
   }
 }
