@@ -1,5 +1,7 @@
-import Carousel from '../components/Carousel';
+import {Canvas} from '@react-three/fiber';
 import {useLoaderData} from '@remix-run/react';
+import {Model} from '../assets/Main_menu_scene_with_mice.jsx';
+import {SoftShadows} from '@react-three/drei';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -10,10 +12,69 @@ export async function loader({context}) {
 
 export default function Index() {
   const {collection} = useLoaderData();
-  console.log(collection);
+
   return (
     <div className="index-container">
-      <Carousel items={collection.products.nodes} collection={collection} />
+      <Canvas shadows camera={{position: [24, 7, 10]}}>
+        <pointLight
+          position={[0, 6, 0]}
+          intensity={400}
+          castShadow
+          color={'white'}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <pointLight
+          position={[0, 6, 15]}
+          intensity={200}
+          castShadow
+          color={'white'}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <pointLight
+          position={[0, 6, -15]}
+          intensity={200}
+          castShadow
+          color={'white'}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <pointLight
+          position={[15, 6, 0]}
+          intensity={200}
+          castShadow
+          color={'white'}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <pointLight
+          position={[15, 6, 5]}
+          intensity={400}
+          castShadow
+          color={'#4361ee'}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <pointLight
+          position={[15, 6, -5]}
+          intensity={400}
+          castShadow
+          color={'#f72585'}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <pointLight
+          position={[-15, 6, 0]}
+          intensity={200}
+          castShadow
+          color={'white'}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <SoftShadows />
+        <Model collection={collection} />
+      </Canvas>
     </div>
   );
 }
