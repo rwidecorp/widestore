@@ -213,6 +213,7 @@ aside li {
 * --------------------------------------------------
 */
 .footer {
+  height: 50px;
   background: var(--color-dark);
   margin-top: auto;
 }
@@ -645,7 +646,7 @@ aside li {
 }
 
 .index-container {
-  height: calc(100vh - var(--header-height));
+  height: calc(100vh - var(--header-height) - 50px);
   display: flex;
   flex-direction: column;
   justify-content: center;
