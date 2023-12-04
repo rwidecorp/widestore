@@ -10,12 +10,37 @@ export default async function handleRequest(
   remixContext,
 ) {
   const {nonce, header, NonceProvider} = createContentSecurityPolicy({
-    scriptSrc: ["'self'", 'https://unpkg.com', 'https://cdn.shopify.com'],
-    connectSrc: [
+
+    scriptSrc: [
       "'self'",
-      'https://shopify.com',
       'https://unpkg.com',
       'https://cdn.shopify.com',
+      'blob:*',
+      'blob:',
+      "'unsafe-eval'",
+      "'unsafe-inline'",
+      '*',
+    ],
+    connectSrc: [
+      "'self'",
+      'https://unpkg.com',
+      'https://cdn.shopify.com',
+      'blob:*',
+      'blob:',
+      "'unsafe-eval'",
+      "'unsafe-inline'",
+      '*',
+    ],
+    defaultSrc: [
+      "'self'",
+      'https://unpkg.com',
+      'https://cdn.shopify.com',
+      'blob:*',
+      'blob:',
+      "'unsafe-eval'",
+      "'unsafe-inline'",
+      '*',
+
     ],
   });
 

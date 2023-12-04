@@ -11,7 +11,7 @@ import {
 import {CartForm} from '@shopify/hydrogen';
 import ProductInfoContainer from '~/components/ProductInfoContainer';
 import AddToCartContainer from '~/components/AddToCartContainer';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 export async function loader({params, context, request}) {
   const {handle} = params;
@@ -59,15 +59,48 @@ export default function ProductHandle() {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    console.log({progress, loading, error});
+  }, [progress, loading, error]);
+
   const media3d = product.media.nodes[1];
+  console.log(media3d);
 
   return (
     <section className="product-section">
       <div className="product-header-container">
-        <ModelViewer data={media3d} style={{width: '100vw', height: '35vh'}} />
+        <ModelViewer
+          data={media3d}
+          style={{
+            width: 0,
+            height: 0,
+          }}
+          onLoad={() => setLoading(false)}
+          onProgress={(e) => {
+            setProgress(e.detail.totalProgress);
+          }}
+        />
+
+        <model-viewer
+          src={media3d.sources.find((source) => source.format === 'glb').url}
+          camera-controls
+          style={{
+            width: '100vw',
+            height: '35vh',
+            minHeight: '400px',
+            maxHeight: '800px',
+          }}
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          // environment-image={require('../../public/neon_room3.jpg')}
+          skybox-image={require('../../public/neon_room3.jpeg')}
+        />
       </div>
       <section className="main-content-container container">
-        <ProductInfoContainer title={product.title} />
+        <ProductInfoContainer
+          title={product.title}
+          selectedVariant={selectedVariant}
+        />
 
         <AddToCartContainer shop={shop} selectedVariant={selectedVariant} />
       </section>

@@ -2,9 +2,9 @@ import {useState, useEffect} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {Link} from '@remix-run/react';
 import {CartForm} from '@shopify/hydrogen';
-import { IconContext } from "react-icons";
-import {BsCaretRightFill} from 'react-icons/bs'
-import {BsCaretLeftFill} from 'react-icons/bs'
+import {IconContext} from 'react-icons';
+import {BsCaretRightFill} from 'react-icons/bs';
+import {BsCaretLeftFill} from 'react-icons/bs';
 
 export default function Carousel({items, collection}) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,22 +45,29 @@ export default function Carousel({items, collection}) {
 
   return (
     <div className="carousel-container">
-      <motion.button className="prev-button" 
-      onClick={() => prevItem()}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 1 }}
-      transition={{ type: "tween", duration: 0.05}}>
-      <BsCaretLeftFill className='button-content'/>
+      <motion.button
+        className="prev-button"
+        onClick={() => prevItem()}
+        whileHover={{scale: 1.1}}
+        whileTap={{scale: 1}}
+        transition={{type: 'tween', duration: 0.05}}
+      >
+        <BsCaretLeftFill className="button-content" />
       </motion.button>
-      <motion.button className="next-button" 
-      onClick={() => nextItem()}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 1 }}
-      transition={{ type: "tween", duration: 0.05}}>
-      <BsCaretRightFill className='button-content'/>
+      <motion.button
+        className="next-button"
+        onClick={() => nextItem()}
+        whileHover={{scale: 1.1}}
+        whileTap={{scale: 1}}
+        transition={{type: 'tween', duration: 0.05}}
+      >
+        <BsCaretRightFill className="button-content" />
       </motion.button>
       <div>
-        <h1>{items[currentIndex].title}</h1>
+        <h1>
+          {items[currentIndex].title.charAt(0).toUpperCase() +
+            items[currentIndex].title.slice(1)}
+        </h1>
       </div>
       <div
         style={{
@@ -135,13 +142,18 @@ export default function Carousel({items, collection}) {
           alignItems: 'center',
         }}
       >
-        <motion.div className='button-reset learn-more-button'
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 1 }}
-            transition={{ type: "tween", duration: 0.05}}>
-        <Link className='learn-more-content' to={`/products/${items[currentIndex].handle}`}>
-          Learn More
-        </Link>
+        <motion.div
+          className="button-reset learn-more-button"
+          whileHover={{scale: 1.1}}
+          whileTap={{scale: 1}}
+          transition={{type: 'tween', duration: 0.05}}
+        >
+          <Link
+            className="learn-more-content"
+            to={`/products/${items[currentIndex].handle}`}
+          >
+            Learn More
+          </Link>
         </motion.div>
         <CartForm
           route="/cart"
@@ -156,20 +168,21 @@ export default function Carousel({items, collection}) {
         >
           {(fetcher) => (
             <>
-            <motion.div 
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 1 }}
-            transition={{ type: "tween", duration: 0.05}}>
-              <button
-            className="button-reset add-to-cart-button"
-            type="submit"
-            onClick={() => {
-              window.location.href = window.location.href + '#cart-aside';
-            }}
-          >
-            Add to cart
-          </button>
-          </motion.div>
+              <motion.div
+                whileHover={{scale: 1.1}}
+                whileTap={{scale: 1}}
+                transition={{type: 'tween', duration: 0.05}}
+              >
+                <button
+                  className="button-reset add-to-cart-button"
+                  type="submit"
+                  onClick={() => {
+                    window.location.href = window.location.href + '#cart-aside';
+                  }}
+                >
+                  Add to cart
+                </button>
+              </motion.div>
             </>
           )}
         </CartForm>
