@@ -247,7 +247,9 @@ function CartDiscounts({discountCodes}) {
         <div>
           <input type="text" name="discountCode" placeholder="Discount code" />
           &nbsp;
-          <button type="submit">Apply</button>
+          <button className="button-reset discount-apply" type="submit">
+            Apply
+          </button>
         </div>
       </UpdateDiscountForm>
     </div>
