@@ -3,14 +3,17 @@ import {
   useGLTF,
   Bounds,
   OrbitControls,
-  Clouds,
-  Cloud,
   useBounds,
   Html,
 } from '@react-three/drei';
 import {useEffect, useState} from 'react';
-import {Link, useNavigate} from '@remix-run/react';
-import * as THREE from 'three';
+import {useNavigate} from '@remix-run/react';
+import {Brik} from './Brik';
+import {Flik} from './Flik';
+import {Sleek} from './Sleek';
+import {Trak} from './Trak';
+import {Room} from './Room';
+import {Pedestals} from './Pedestals';
 
 const apiFunctions = [];
 
@@ -69,10 +72,14 @@ const HtmlContent = ({
 };
 
 export function Model({collection}) {
-  const {nodes, materials} = useGLTF('/main_menu_scene_with_mice.glb');
+  const {nodes, materials} = useGLTF('/room_with_mice.glb');
   const [selected, setSelected] = useState('BRIK');
 
   const cameraControlsRef = useRef();
+
+  useEffect(() => {
+    console.log(apiFunctions);
+  }, [apiFunctions]);
 
   useEffect(() => {
     apiFunctions.find((obj) => obj.id === 'BRIK').api.fit();
@@ -86,6 +93,7 @@ export function Model({collection}) {
         minPolarAngle={0}
         maxPolarAngle={Math.PI / 1.75}
       />
+      <Room />
 
       <Bounds clip observe margin={1.8}>
         <CamController pos={[11.843, 0.692, -0.168]} name="TRAK" />
@@ -103,17 +111,7 @@ export function Model({collection}) {
           />
         )}
 
-        <group
-          position={[11.843, 0.692, -0.168]}
-          rotation={[-Math.PI, 0.011, -Math.PI]}
-          scale={0.071}
-        >
-          <mesh
-            geometry={nodes.wide_straight_v22_1.geometry}
-            material={materials['Material.002']}
-            castShadow
-          />
-        </group>
+        <Trak />
       </Bounds>
       <Bounds clip observe margin={1.8}>
         <CamController pos={[-12.289, 0.712, 0.09]} name="SLEEK" />
@@ -131,13 +129,7 @@ export function Model({collection}) {
           />
         )}
 
-        <mesh
-          geometry={nodes.narrowmouse_v197.geometry}
-          material={materials['Material.002']}
-          position={[-12.289, 0.712, 0.09]}
-          scale={0.071}
-          castShadow
-        />
+        <Sleek />
       </Bounds>
       {/*  mouse 3 */}
       <Bounds clip observe margin={1.8}>
@@ -156,14 +148,7 @@ export function Model({collection}) {
           />
         )}
 
-        <mesh
-          geometry={nodes['122_main_v310'].geometry}
-          material={materials['Material.002']}
-          position={[-0.207, 0.711, 11.494]}
-          rotation={[0, 1.571, 0]}
-          scale={0.071}
-          castShadow
-        />
+        <Flik />
       </Bounds>
       {/* mouse 4 */}
       <Bounds clip observe margin={1.8}>
@@ -182,54 +167,12 @@ export function Model({collection}) {
           />
         )}
 
-        <mesh
-          geometry={nodes.straight_122_buttons_v87.geometry}
-          material={materials['Material.002']}
-          position={[0.002, 0.726, -11.702]}
-          rotation={[0, -1.571, 0]}
-          scale={0.071}
-          castShadow
-        />
+        <Brik />
       </Bounds>
-      <group position={[-0.1, 40.489, 0]} scale={60}>
-        <mesh
-          geometry={nodes.Cube_1.geometry}
-          material={materials.brushed_concrete}
-        />
-        <mesh
-          geometry={nodes.Cube_2.geometry}
-          material={materials.concrete_layers_02}
-        />
-      </group>
+
       {/* Pedestal Meshes */}
-      <mesh
-        geometry={nodes.Cylinder.geometry}
-        material={materials.concrete_floor_worn_001}
-        position={[12, -10.162, 0]}
-        scale={[5.15, 9.484, 5.15]}
-        receiveShadow
-      />
-      <mesh
-        geometry={nodes.Cylinder013.geometry}
-        material={materials.concrete_floor_worn_001}
-        position={[0, -10.162, 12]}
-        scale={[5.15, 9.484, 5.15]}
-        receiveShadow
-      />
-      <mesh
-        geometry={nodes.Cylinder014.geometry}
-        material={materials.concrete_floor_worn_001}
-        position={[-12, -10.162, 0]}
-        scale={[5.15, 9.484, 5.15]}
-        receiveShadow
-      />
-      <mesh
-        geometry={nodes.Cylinder001.geometry}
-        material={materials.concrete_floor_worn_001}
-        position={[0, -10.162, -12]}
-        scale={[5.15, 9.484, 5.15]}
-        receiveShadow
-      />
+
+      <Pedestals />
     </group>
   );
 }
