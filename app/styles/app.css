@@ -777,3 +777,44 @@ aside li {
     opacity: 0;
   }
 }
+
+/*
+* --------------------------------------------------
+* Main Menu Scene
+* --------------------------------------------------
+*/
+
+.main-card-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.main-card-next {
+  height: 26px;
+  width: 15%;
+  border-radius: 4px;
+  background-color: var(--neon-blue);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: 6px;
+}
+
+.main-card-prev {
+  height: 26px;
+  width: 22%;
+  border-radius: 4px;
+  background-color: var(--neon-blue);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: auto;
+}
+
+.main-card-view {
+  height: 26px;
+  width: 31%;
+  border-radius: 4px;
+  background-color: var(--neon-blue);
+  font-weight: 600;
+  font-size: 1rem;
+}

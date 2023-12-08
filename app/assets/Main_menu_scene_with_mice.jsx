@@ -62,11 +62,26 @@ const HtmlContent = ({
     >
       <h1 style={{margin: 0}}>{name}</h1>
       <p>{data.description}</p>
-      <button onClick={() => handleNextClick()}>next</button>
-      <button onClick={() => navigate(`/products/${data.handle}`)}>
-        view product
-      </button>
-      <button onClick={() => handlePreviousClick()}>previous</button>
+      <div className="main-card-container">
+        <button
+          onClick={() => navigate(`/products/${data.handle}`)}
+          className="button-reset main-card-view"
+        >
+          View Product
+        </button>
+        <button
+          onClick={() => handlePreviousClick()}
+          className="button-reset main-card-prev"
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => handleNextClick()}
+          className="button-reset main-card-next"
+        >
+          Next
+        </button>
+      </div>
     </Html>
   );
 };
