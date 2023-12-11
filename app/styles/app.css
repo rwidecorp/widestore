@@ -12,6 +12,7 @@
   --grape: #7209b7ff;
   --zaffre: #3a0ca3ff;
   --neon-blue: #4361eeff;
+  --neon-blue-hover: #5b79ff;
 }
 
 @font-face {
@@ -791,30 +792,92 @@ aside li {
 }
 
 .main-card-next {
-  height: 26px;
-  width: 15%;
-  border-radius: 4px;
-  background-color: var(--neon-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: -40px;
+  right: -50px;
+  width: 48px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #605b6790;
+  color: var(--rose);
   font-weight: 600;
-  font-size: 1rem;
-  margin-left: 6px;
+  font-size: 1.75rem;
+}
+
+.main-card-next:hover {
+  background-color: #77717e90;
 }
 
 .main-card-prev {
-  height: 26px;
-  width: 22%;
-  border-radius: 4px;
-  background-color: var(--neon-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: -40px;
+  left: -50px;
+  width: 48px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #605b6790;
+  color: var(--rose);
   font-weight: 600;
-  font-size: 1rem;
-  margin-left: auto;
+  font-size: 1.75rem;
+}
+
+.main-card-prev:hover {
+  background-color: #77717e90;
 }
 
 .main-card-view {
-  height: 26px;
-  width: 31%;
-  border-radius: 4px;
+  height: 38px;
+  width: 100%;
   background-color: var(--neon-blue);
   font-weight: 600;
   font-size: 1rem;
+  margin-right: 2px;
+}
+
+.main-card-view:hover {
+  background-color: var(--neon-blue-hover);
+}
+
+.main-card-quick {
+  height: 38px;
+  width: 100%;
+  background-color: var(--neon-blue);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.main-card-quick:hover {
+  background-color: var(--neon-blue-hover);
+}
+
+.main-card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-bottom: 6px;
+  margin-left: 6px;
+}
+
+/* .main-card-parent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+.main-card-footer-btns {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
