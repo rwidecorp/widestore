@@ -14,6 +14,9 @@ import {Sleek} from './Sleek';
 import {Trak} from './Trak';
 import {Room} from './Room';
 import {Pedestals} from './Pedestals';
+import {IconContext} from 'react-icons';
+import {BsCaretRightFill} from 'react-icons/bs';
+import {BsCaretLeftFill} from 'react-icons/bs';
 
 const apiFunctions = [];
 
@@ -55,18 +58,35 @@ const HtmlContent = ({
       style={{
         backgroundColor: '#1b1a1d',
         padding: '1rem',
-        borderRadius: '5px',
-        maxWidth: '400px',
+        maxWidth: '300px',
         transform: 'scale(0.8)',
       }}
     >
-      <h1 style={{margin: 0}}>{name}</h1>
-      <p>{data.description}</p>
-      <button onClick={() => handleNextClick()}>next</button>
-      <button onClick={() => navigate(`/products/${data.handle}`)}>
-        view product
+      <button
+        onClick={() => handlePreviousClick()}
+        className="button-reset main-card-prev"
+      >
+        <BsCaretLeftFill />
       </button>
-      <button onClick={() => handlePreviousClick()}>previous</button>
+      <button
+        onClick={() => handleNextClick()}
+        className="button-reset main-card-next"
+      >
+        <BsCaretRightFill />
+      </button>
+      <div className="main-card-info">
+        <h1 style={{margin: 0}}>{name}</h1>
+        <p>{data.description}</p>
+        <div className="main-card-footer-btns">
+          <button
+            onClick={() => navigate(`/products/${data.handle}`)}
+            className="button-reset main-card-view"
+          >
+            View Product
+          </button>
+          <button className="button-reset main-card-quick">Quick Add</button>
+        </div>
+      </div>
     </Html>
   );
 };
