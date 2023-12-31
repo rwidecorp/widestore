@@ -662,7 +662,8 @@ aside li {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background-image: url('../assets/home_backdrop.jpg');
+  background-color: black;
+  /* background-image: url('../assets/home_backdrop.jpg'); */
   background-size: cover;
   background-position: center;
 }
