@@ -1,7 +1,7 @@
 import {Canvas} from '@react-three/fiber';
 import {useLoaderData} from '@remix-run/react';
 import {Model} from '../assets/Main_menu_scene_with_mice.jsx';
-import {Grid, SoftShadows, GizmoHelper, GizmoViewport} from '@react-three/drei';
+import {SoftShadows} from '@react-three/drei';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -15,17 +15,7 @@ export default function Index() {
 
   return (
     <div className="index-container">
-      <Canvas shadows camera={{position: [24, 7, 10]}}>
-        <Grid />
-        <GizmoHelper
-          alignment="bottom-right" // widget alignment within scene
-          margin={[80, 80]} // widget margins (X, Y)
-        >
-          <GizmoViewport
-            axisColors={['red', 'green', 'blue']}
-            labelColor="black"
-          />
-        </GizmoHelper>
+      <Canvas shadows>
         <pointLight
           position={[0, 6, 0]}
           intensity={400}
