@@ -57,7 +57,7 @@ const HtmlContent = ({
         backgroundColor: '#1b1a1d',
         padding: '1rem',
         maxWidth: '300px',
-        transform: 'scale(0.8)',
+        transform: 'scale(1)',
       }}
     >
       <button
@@ -103,24 +103,24 @@ export function Model({collection}) {
     switch (selected) {
       case 'FLIK':
         cameraControlsRef.current.setTarget(0.05, 0.711, 12.2, true);
-        cameraControlsRef.current.rotateTo(-1, 1, true);
-        cameraControlsRef.current.dollyTo(8, true);
+        cameraControlsRef.current.rotateTo(-0.55, 1.25, true);
+        cameraControlsRef.current.dollyTo(12, true);
         break;
       case 'BRIK':
         cameraControlsRef.current.setTarget(-0.3, 0.726, -12.2, true);
-        cameraControlsRef.current.rotateTo(2.5, 1, true);
-        cameraControlsRef.current.dollyTo(8, true);
+        cameraControlsRef.current.rotateTo(2.55, 1.25, true);
+        cameraControlsRef.current.dollyTo(12, true);
 
         break;
       case 'SLEEK':
         cameraControlsRef.current.setTarget(-12.289, 0.712, 0.09, true);
-        cameraControlsRef.current.rotateTo(4, 1, true);
-        cameraControlsRef.current.dollyTo(8, true);
+        cameraControlsRef.current.rotateTo(4.15, 1.25, true);
+        cameraControlsRef.current.dollyTo(12, true);
         break;
       case 'TRAK':
         cameraControlsRef.current.setTarget(12.5, 0.692, -0.168, true);
-        cameraControlsRef.current.rotateTo(1, 1, true);
-        cameraControlsRef.current.dollyTo(8, true);
+        cameraControlsRef.current.rotateTo(1, 1.25, true);
+        cameraControlsRef.current.dollyTo(12, true);
 
         break;
       default:
@@ -136,8 +136,8 @@ export function Model({collection}) {
         <CamController pos={[11.843, 0.692, -0.168]} name="TRAK" />
         {selected === 'TRAK' && (
           <HtmlContent
-            position={[8, 0.692 + 3, 4.5]}
-            rotation={[0, 2.3, 0]}
+            position={[8, 0.95 + 3.5, 0]}
+            rotation={[0, 1.56, 0]}
             name="TRAK"
             previous="FLIK"
             next="BRIK"
@@ -154,8 +154,8 @@ export function Model({collection}) {
         <CamController pos={[-12.289, 0.712, 0.09]} name="SLEEK" />
         {selected === 'SLEEK' && (
           <HtmlContent
-            position={[-8.289, 0.712 + 3, -4.5]}
-            rotation={[0, -1, 0]}
+            position={[-8, 1 + 3.5, 0]}
+            rotation={[0, -1.6, 0]}
             name="SLEEK"
             previous="BRIK"
             next="FLIK"
@@ -173,8 +173,8 @@ export function Model({collection}) {
         <CamController pos={[-0.207, 0.711, 11.494]} name="FLIK" />
         {selected === 'FLIK' && (
           <HtmlContent
-            position={[-4.5, 0.711 + 3, 8.494]}
-            rotation={[0, 1, 0]}
+            position={[0, 1 + 3.5, 8]}
+            rotation={[0, 0, 0]}
             name="FLIK"
             previous="SLEEK"
             next="TRAK"
@@ -192,8 +192,8 @@ export function Model({collection}) {
         <CamController name="BRIK" />
         {selected === 'BRIK' && (
           <HtmlContent
-            position={[4.5, 0.726 + 3, -8.702]}
-            rotation={[0, 4, 0]}
+            position={[0, 1 + 3.5, -8]}
+            rotation={[0, 3.155, 0]}
             name="BRIK"
             previous="TRAK"
             next="SLEEK"
