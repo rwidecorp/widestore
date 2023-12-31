@@ -93,7 +93,7 @@ const HtmlContent = ({
 
 export function Model({collection}) {
   const {nodes, materials} = useGLTF('/room_with_mice.glb');
-  const [selected, setSelected] = useState('BRIK');
+  const [selected, setSelected] = useState('FLIK');
 
   const cameraControlsRef = useRef();
 
@@ -102,7 +102,7 @@ export function Model({collection}) {
   }, [apiFunctions]);
 
   useEffect(() => {
-    apiFunctions.find((obj) => obj.id === 'BRIK').api.fit();
+    apiFunctions.find((obj) => obj.id === 'FLIK').api.fit();
   }, []);
 
   return (
@@ -113,7 +113,7 @@ export function Model({collection}) {
         minPolarAngle={0}
         maxPolarAngle={Math.PI / 1.75}
       />
-      <Room />
+      {/* <Room /> */}
 
       <Bounds clip observe margin={1.8}>
         <CamController pos={[11.843, 0.692, -0.168]} name="TRAK" />
