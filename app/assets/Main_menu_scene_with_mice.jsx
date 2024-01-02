@@ -89,9 +89,9 @@ const HtmlContent = ({
   );
 };
 
-export function Model({collection}) {
+export function Model({collection, selected, setSelected}) {
   const {nodes, materials} = useGLTF('/room_with_mice.glb');
-  const [selected, setSelected] = useState();
+  // const [selected, setSelected] = useState();
 
   const cameraControlsRef = useRef();
 

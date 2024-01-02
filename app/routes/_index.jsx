@@ -2,6 +2,7 @@ import {Canvas} from '@react-three/fiber';
 import {useLoaderData} from '@remix-run/react';
 import {Model} from '../assets/Main_menu_scene_with_mice.jsx';
 import {SoftShadows} from '@react-three/drei';
+import {useState} from 'react';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -13,10 +14,100 @@ export async function loader({context}) {
 export default function Index() {
   const {collection} = useLoaderData();
 
+  const [selected, setSelected] = useState();
+
   return (
     <div className="index-container">
       <Canvas shadows>
-        <pointLight
+        {/* <pointLight
+          position={[0, 30, 0]}
+          intensity={8000}
+          castShadow
+          color={'white'}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        /> */}
+        {selected === 'FLIK' && (
+          <>
+            <pointLight
+              position={[7, 10, 14]}
+              intensity={1000}
+              castShadow
+              color={'white'}
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+            <pointLight
+              position={[-7, 10, 14]}
+              intensity={2000}
+              castShadow
+              color={'white'}
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+          </>
+        )}
+        {selected === 'TRAK' && (
+          <>
+            <pointLight
+              position={[14, 10, -7]}
+              intensity={1000}
+              castShadow
+              color={'white'}
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+            <pointLight
+              position={[14, 10, 7]}
+              intensity={2000}
+              castShadow
+              color={'white'}
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+          </>
+        )}
+        {selected === 'BRIK' && (
+          <>
+            <pointLight
+              position={[-7, 10, -14]}
+              intensity={1000}
+              castShadow
+              color={'white'}
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+            <pointLight
+              position={[7, 10, -14]}
+              intensity={2000}
+              castShadow
+              color={'white'}
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+          </>
+        )}
+        {selected === 'SLEEK' && (
+          <>
+            <pointLight
+              position={[-14, 10, 7]}
+              intensity={1000}
+              castShadow
+              color={'white'}
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+            <pointLight
+              position={[-14, 10, -7]}
+              intensity={2000}
+              castShadow
+              color={'white'}
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+          </>
+        )}
+        {/* <pointLight
           position={[0, 6, 0]}
           intensity={400}
           castShadow
@@ -71,9 +162,13 @@ export default function Index() {
           color={'white'}
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
-        />
+        /> */}
         <SoftShadows />
-        <Model collection={collection} />
+        <Model
+          collection={collection}
+          selected={selected}
+          setSelected={setSelected}
+        />
       </Canvas>
     </div>
   );
