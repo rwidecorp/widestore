@@ -1,8 +1,9 @@
 import {Canvas} from '@react-three/fiber';
 import {useLoaderData} from '@remix-run/react';
 import {Model} from '../assets/Main_menu_scene_with_mice.jsx';
-import {SoftShadows} from '@react-three/drei';
+import {SoftShadows, Environment} from '@react-three/drei';
 import {useState} from 'react';
+import clouds from '../../public/cloud_env.hdr';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -19,6 +20,7 @@ export default function Index() {
   return (
     <div className="index-container">
       <Canvas shadows>
+        <Environment files={clouds} background />
         {selected === 'FLIK' && (
           <>
             <pointLight
