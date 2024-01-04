@@ -118,60 +118,31 @@ export function Model({collection, selected, setSelected}) {
         // On first render, rotate to the correct position
         if (isFirstRender) {
           cameraControlsRef.current.rotateTo(-0.55, 1.25, true);
-          cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
           setIsFirstRender(false);
         } else {
-          if (isNext) {
-            cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
-          }
-          if (isPrevious) {
-            cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
-          }
-          cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
         }
-        cameraControlsRef.current.dollyTo(12, true);
         break;
       case 'BRIK':
         cameraControlsRef.current.setTarget(-0.3, 0.726, -12.2, true);
-        if (isNext) {
-          cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
-        }
-        if (isPrevious) {
-          cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
-        }
-        cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
-
-        cameraControlsRef.current.dollyTo(12, true);
-
         break;
       case 'SLEEK':
         cameraControlsRef.current.setTarget(-12.289, 0.712, 0.09, true);
-        if (isNext) {
-          cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
-        }
-        if (isPrevious) {
-          cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
-        }
-        cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
-
-        cameraControlsRef.current.dollyTo(12, true);
         break;
       case 'TRAK':
         cameraControlsRef.current.setTarget(12.5, 0.692, -0.168, true);
-        if (isNext) {
-          cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
-        }
-        if (isPrevious) {
-          cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
-        }
-        cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
-
-        cameraControlsRef.current.dollyTo(12, true);
-
         break;
       default:
         break;
     }
+    if (isNext) {
+      cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
+    }
+    if (isPrevious) {
+      cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
+    }
+    cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
+
+    cameraControlsRef.current.dollyTo(12, true);
   }, [selected]);
 
   return (
