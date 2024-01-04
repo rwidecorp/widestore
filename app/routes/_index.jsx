@@ -19,14 +19,6 @@ export default function Index() {
   return (
     <div className="index-container">
       <Canvas shadows>
-        {/* <pointLight
-          position={[0, 30, 0]}
-          intensity={8000}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        /> */}
         {selected === 'FLIK' && (
           <>
             <pointLight

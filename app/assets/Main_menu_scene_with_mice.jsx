@@ -6,6 +6,7 @@ import {
   Html,
   CameraControls,
 } from '@react-three/drei';
+import * as THREE from 'three';
 import {useEffect, useState} from 'react';
 import {useNavigate} from '@remix-run/react';
 import {Brik} from './Brik';
@@ -36,15 +37,21 @@ const HtmlContent = ({
   next,
   previous,
   setSelected,
+  setIsNext,
+  setIsPrevious,
 }) => {
   const navigate = useNavigate();
 
   const handleNextClick = () => {
     // apiFunctions.find((obj) => obj.id === next).api.fit();
+    setIsNext(true);
+    setIsPrevious(false);
     setSelected(next);
   };
   const handlePreviousClick = () => {
     // apiFunctions.find((obj) => obj.id === previous).api.fit();
+    setIsPrevious(true);
+    setIsNext(false);
     setSelected(previous);
   };
 
@@ -91,7 +98,11 @@ const HtmlContent = ({
 
 export function Model({collection, selected, setSelected}) {
   const {nodes, materials} = useGLTF('/room_with_mice.glb');
-  // const [selected, setSelected] = useState();
+  const [isFirstRender, setIsFirstRender] = useState(true);
+  const [isNext, setIsNext] = useState(false);
+  const [isPrevious, setIsPrevious] = useState(false);
+
+  const {DEG2RAD} = THREE.MathUtils;
 
   const cameraControlsRef = useRef();
 
@@ -100,26 +111,61 @@ export function Model({collection, selected, setSelected}) {
   }, []);
 
   useEffect(() => {
+    // This will need to be refreshed each time the window updates due to not resetting the camera
     switch (selected) {
       case 'FLIK':
         cameraControlsRef.current.setTarget(0.05, 0.711, 12.2, true);
-        cameraControlsRef.current.rotateTo(-0.55, 1.25, true);
+        // On first render, rotate to the correct position
+        if (isFirstRender) {
+          cameraControlsRef.current.rotateTo(-0.55, 1.25, true);
+          cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
+          setIsFirstRender(false);
+        } else {
+          if (isNext) {
+            cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
+          }
+          if (isPrevious) {
+            cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
+          }
+          cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
+        }
         cameraControlsRef.current.dollyTo(12, true);
         break;
       case 'BRIK':
         cameraControlsRef.current.setTarget(-0.3, 0.726, -12.2, true);
-        cameraControlsRef.current.rotateTo(2.55, 1.25, true);
+        if (isNext) {
+          cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
+        }
+        if (isPrevious) {
+          cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
+        }
+        cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
+
         cameraControlsRef.current.dollyTo(12, true);
 
         break;
       case 'SLEEK':
         cameraControlsRef.current.setTarget(-12.289, 0.712, 0.09, true);
-        cameraControlsRef.current.rotateTo(4.15, 1.25, true);
+        if (isNext) {
+          cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
+        }
+        if (isPrevious) {
+          cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
+        }
+        cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
+
         cameraControlsRef.current.dollyTo(12, true);
         break;
       case 'TRAK':
         cameraControlsRef.current.setTarget(12.5, 0.692, -0.168, true);
-        cameraControlsRef.current.rotateTo(1, 1.25, true);
+        if (isNext) {
+          cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
+        }
+        if (isPrevious) {
+          cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
+        }
+        cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
+
         cameraControlsRef.current.dollyTo(12, true);
 
         break;
@@ -145,6 +191,8 @@ export function Model({collection, selected, setSelected}) {
               (obj) => obj.handle === 'trak',
             )}
             setSelected={setSelected}
+            setIsNext={setIsNext}
+            setIsPrevious={setIsPrevious}
           />
         )}
 
@@ -163,6 +211,8 @@ export function Model({collection, selected, setSelected}) {
               (obj) => obj.handle === 'sleek',
             )}
             setSelected={setSelected}
+            setIsNext={setIsNext}
+            setIsPrevious={setIsPrevious}
           />
         )}
 
@@ -182,6 +232,8 @@ export function Model({collection, selected, setSelected}) {
               (obj) => obj.handle === 'flik',
             )}
             setSelected={setSelected}
+            setIsNext={setIsNext}
+            setIsPrevious={setIsPrevious}
           />
         )}
 
@@ -201,6 +253,8 @@ export function Model({collection, selected, setSelected}) {
               (obj) => obj.handle === 'brik',
             )}
             setSelected={setSelected}
+            setIsNext={setIsNext}
+            setIsPrevious={setIsPrevious}
           />
         )}
 
