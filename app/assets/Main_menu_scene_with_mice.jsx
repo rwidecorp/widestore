@@ -2,19 +2,18 @@ import React, {useRef, useCallback} from 'react';
 import {
   useGLTF,
   Bounds,
-  OrbitControls,
   useBounds,
   Html,
+  CameraControls,
 } from '@react-three/drei';
+import * as THREE from 'three';
 import {useEffect, useState} from 'react';
 import {useNavigate} from '@remix-run/react';
 import {Brik} from './Brik';
 import {Flik} from './Flik';
 import {Sleek} from './Sleek';
 import {Trak} from './Trak';
-import {Room} from './Room';
 import {Pedestals} from './Pedestals';
-import {IconContext} from 'react-icons';
 import {BsCaretRightFill} from 'react-icons/bs';
 import {BsCaretLeftFill} from 'react-icons/bs';
 
@@ -38,15 +37,21 @@ const HtmlContent = ({
   next,
   previous,
   setSelected,
+  setIsNext,
+  setIsPrevious,
 }) => {
   const navigate = useNavigate();
 
   const handleNextClick = () => {
-    apiFunctions.find((obj) => obj.id === next).api.fit();
+    // apiFunctions.find((obj) => obj.id === next).api.fit();
+    setIsNext(true);
+    setIsPrevious(false);
     setSelected(next);
   };
   const handlePreviousClick = () => {
-    apiFunctions.find((obj) => obj.id === previous).api.fit();
+    // apiFunctions.find((obj) => obj.id === previous).api.fit();
+    setIsPrevious(true);
+    setIsNext(false);
     setSelected(previous);
   };
 
@@ -59,7 +64,7 @@ const HtmlContent = ({
         backgroundColor: '#1b1a1d',
         padding: '1rem',
         maxWidth: '300px',
-        transform: 'scale(0.8)',
+        transform: 'scale(1)',
       }}
     >
       <button
@@ -91,43 +96,74 @@ const HtmlContent = ({
   );
 };
 
-export function Model({collection}) {
+export function Model({collection, selected, setSelected}) {
   const {nodes, materials} = useGLTF('/room_with_mice.glb');
-  const [selected, setSelected] = useState('BRIK');
+  const [isFirstRender, setIsFirstRender] = useState(true);
+  const [isNext, setIsNext] = useState(false);
+  const [isPrevious, setIsPrevious] = useState(false);
+
+  const {DEG2RAD} = THREE.MathUtils;
 
   const cameraControlsRef = useRef();
 
   useEffect(() => {
-    console.log(apiFunctions);
-  }, [apiFunctions]);
+    setSelected('FLIK');
+  }, []);
 
   useEffect(() => {
-    apiFunctions.find((obj) => obj.id === 'BRIK').api.fit();
-  }, []);
+    // This will need to be refreshed each time the window updates due to not resetting the camera
+    switch (selected) {
+      case 'FLIK':
+        cameraControlsRef.current.setTarget(0.05, 0.711, 12.2, true);
+        // On first render, rotate to the correct position
+        if (isFirstRender) {
+          cameraControlsRef.current.rotateTo(-0.55, 1.25, true);
+          setIsFirstRender(false);
+        } else {
+        }
+        break;
+      case 'BRIK':
+        cameraControlsRef.current.setTarget(-0.3, 0.726, -12.2, true);
+        break;
+      case 'SLEEK':
+        cameraControlsRef.current.setTarget(-12.289, 0.712, 0.09, true);
+        break;
+      case 'TRAK':
+        cameraControlsRef.current.setTarget(12.5, 0.692, -0.168, true);
+        break;
+      default:
+        break;
+    }
+    if (isNext) {
+      cameraControlsRef.current.rotate(90 * DEG2RAD, 0, true);
+    }
+    if (isPrevious) {
+      cameraControlsRef.current.rotate(-145 * DEG2RAD, 0, true);
+    }
+    cameraControlsRef.current.rotatePolarTo(70 * DEG2RAD, true);
+
+    cameraControlsRef.current.dollyTo(12, true);
+  }, [selected]);
 
   return (
     <group dispose={null}>
-      <OrbitControls
-        makeDefault
-        ref={cameraControlsRef}
-        minPolarAngle={0}
-        maxPolarAngle={Math.PI / 1.75}
-      />
-      <Room />
+      <CameraControls makeDefault ref={cameraControlsRef} />
 
       <Bounds clip observe margin={1.8}>
         <CamController pos={[11.843, 0.692, -0.168]} name="TRAK" />
         {selected === 'TRAK' && (
           <HtmlContent
-            position={[8, 0.692 + 3, 4.5]}
-            rotation={[0, 2.3, 0]}
+            position={[8, 0.95 + 3.5, 0]}
+            rotation={[0, 1.56, 0]}
             name="TRAK"
-            previous="BRIK"
-            next="SLEEK"
+            previous="FLIK"
+            next="BRIK"
             data={collection.products.nodes.find(
               (obj) => obj.handle === 'trak',
             )}
             setSelected={setSelected}
+            setIsNext={setIsNext}
+            setIsPrevious={setIsPrevious}
           />
         )}
 
@@ -137,15 +173,17 @@ export function Model({collection}) {
         <CamController pos={[-12.289, 0.712, 0.09]} name="SLEEK" />
         {selected === 'SLEEK' && (
           <HtmlContent
-            position={[-8.289, 0.712 + 3, -4.5]}
-            rotation={[0, -1, 0]}
+            position={[-8, 1 + 3.5, 0]}
+            rotation={[0, -1.6, 0]}
             name="SLEEK"
-            previous="TRAK"
+            previous="BRIK"
             next="FLIK"
             data={collection.products.nodes.find(
               (obj) => obj.handle === 'sleek',
             )}
             setSelected={setSelected}
+            setIsNext={setIsNext}
+            setIsPrevious={setIsPrevious}
           />
         )}
 
@@ -156,15 +194,17 @@ export function Model({collection}) {
         <CamController pos={[-0.207, 0.711, 11.494]} name="FLIK" />
         {selected === 'FLIK' && (
           <HtmlContent
-            position={[-4.5, 0.711 + 3, 8.494]}
-            rotation={[0, 1, 0]}
+            position={[0, 1 + 3.5, 8]}
+            rotation={[0, 0, 0]}
             name="FLIK"
             previous="SLEEK"
-            next="BRIK"
+            next="TRAK"
             data={collection.products.nodes.find(
               (obj) => obj.handle === 'flik',
             )}
             setSelected={setSelected}
+            setIsNext={setIsNext}
+            setIsPrevious={setIsPrevious}
           />
         )}
 
@@ -172,18 +212,20 @@ export function Model({collection}) {
       </Bounds>
       {/* mouse 4 */}
       <Bounds clip observe margin={1.8}>
-        <CamController pos={[0.002, 0.726, -11.702]} name="BRIK" />
+        <CamController name="BRIK" />
         {selected === 'BRIK' && (
           <HtmlContent
-            position={[4.5, 0.726 + 3, -8.702]}
-            rotation={[0, 4, 0]}
+            position={[0, 1 + 3.5, -8]}
+            rotation={[0, 3.155, 0]}
             name="BRIK"
-            previous="FLIK"
-            next="TRAK"
+            previous="TRAK"
+            next="SLEEK"
             data={collection.products.nodes.find(
               (obj) => obj.handle === 'brik',
             )}
             setSelected={setSelected}
+            setIsNext={setIsNext}
+            setIsPrevious={setIsPrevious}
           />
         )}
 
