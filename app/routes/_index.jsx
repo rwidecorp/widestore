@@ -1,9 +1,11 @@
 import {Canvas} from '@react-three/fiber';
 import {useLoaderData} from '@remix-run/react';
 import {Model} from '../assets/Main_menu_scene_with_mice.jsx';
-import {SoftShadows, Environment} from '@react-three/drei';
-import {useState} from 'react';
-import clouds from '../../public/cloud_env.hdr';
+import {SoftShadows, Loader} from '@react-three/drei';
+import {useEffect, useState} from 'react';
+import {BsCaretRightFill} from 'react-icons/bs';
+import {BsCaretLeftFill} from 'react-icons/bs';
+import {useNavigate} from '@remix-run/react';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -14,18 +16,68 @@ export async function loader({context}) {
 
 export default function Index() {
   const {collection} = useLoaderData();
+  const navigate = useNavigate();
 
   const [selected, setSelected] = useState();
+  const [brightness, setBrightness] = useState(600);
+  const [isNext, setIsNext] = useState(false);
+  const [isPrevious, setIsPrevious] = useState(false);
+
+  useEffect(() => {
+    switch (selected) {
+      case 'FLIK':
+        setIsPrevious('SLEEK');
+        setIsNext('TRAK');
+        break;
+      case 'TRAK':
+        setIsPrevious('FLIK');
+        setIsNext('BRIK');
+        break;
+      case 'BRIK':
+        setIsPrevious('TRAK');
+        setIsNext('SLEEK');
+        break;
+      case 'SLEEK':
+        setIsPrevious('BRIK');
+        setIsNext('FLIK');
+        break;
+      default:
+        break;
+    }
+  }, [selected]);
+
+  const selectedData =
+    selected &&
+    collection.products.nodes.find(
+      (obj) => obj.handle === selected.toLowerCase(),
+    );
+
+  const handleNextClick = () => {
+    setIsNext(true);
+    setIsPrevious(false);
+    setSelected(isNext);
+  };
+  const handlePreviousClick = () => {
+    setIsPrevious(true);
+    setIsNext(false);
+    setSelected(isPrevious);
+  };
+
+  useEffect(() => {
+    if (selectedData) {
+      console.log(selectedData);
+    }
+  }, [selectedData]);
 
   return (
     <div className="index-container">
       <Canvas shadows>
-        <Environment files={clouds} background />
+        <ambientLight intensity={2.4} />
         {selected === 'FLIK' && (
           <>
             <pointLight
               position={[7, 10, 14]}
-              intensity={1000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -33,7 +85,7 @@ export default function Index() {
             />
             <pointLight
               position={[-7, 10, 14]}
-              intensity={2000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -101,69 +153,64 @@ export default function Index() {
             />
           </>
         )}
-        {/* <pointLight
-          position={[0, 6, 0]}
-          intensity={400}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[0, 6, 15]}
-          intensity={200}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[0, 6, -15]}
-          intensity={200}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[15, 6, 0]}
-          intensity={200}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[15, 6, 5]}
-          intensity={400}
-          castShadow
-          color={'#4361ee'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[15, 6, -5]}
-          intensity={400}
-          castShadow
-          color={'#f72585'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[-15, 6, 0]}
-          intensity={200}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        /> */}
+
         <SoftShadows />
         <Model
           collection={collection}
           selected={selected}
           setSelected={setSelected}
+          isNext={isNext}
+          isPrevious={isPrevious}
+          setIsNext={setIsNext}
+          setIsPrevious={setIsPrevious}
         />
       </Canvas>
+      <Loader />
+      {selectedData && (
+        <div className="main-card-column">
+          <div className="main-card">
+            <h1>{selectedData.title}</h1>
+            <p style={{marginBottom: '24px'}}>{selectedData.description}</p>
+            <div className="main-card-button-container">
+              <button
+                onClick={() => handlePreviousClick()}
+                className="button-reset main-card-prev main-card-button"
+              >
+                <BsCaretLeftFill />
+                previous
+              </button>
+              <button className="button-reset main-card-quick main-card-button">
+                add to cart
+              </button>
+              <button
+                onClick={() => navigate(`products/${selectedData.handle}`)}
+                className="button-reset main-card-quick main-card-button"
+              >
+                learn more
+              </button>
+              <button
+                onClick={() => handleNextClick()}
+                className="button-reset main-card-next main-card-button"
+              >
+                next
+                <BsCaretRightFill />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* <div style={{position: 'absolute', top: '0', left: '0'}}>
+        <label htmlFor="brightness">Brightness</label>
+        <input
+          type="range"
+          min="0"
+          max="2000"
+          onChange={(e) => {
+            setBrightness(e.target.value);
+          }}
+        />
+      </div> */}
     </div>
   );
 }
