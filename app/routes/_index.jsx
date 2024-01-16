@@ -6,6 +6,7 @@ import {useEffect, useState} from 'react';
 import {BsCaretRightFill} from 'react-icons/bs';
 import {BsCaretLeftFill} from 'react-icons/bs';
 import {useNavigate} from '@remix-run/react';
+import MainSceneAside from '../components/MainSceneAside.jsx';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -172,15 +173,15 @@ export default function Index() {
             <h1>{selectedData.title}</h1>
             <p style={{marginBottom: '24px'}}>{selectedData.description}</p>
             <div className="main-card-button-container">
+              <button className="button-reset main-card-quick main-card-button cta-button">
+                <strong>add to cart</strong>
+              </button>
               <button
                 onClick={() => handlePreviousClick()}
                 className="button-reset main-card-prev main-card-button"
               >
                 <BsCaretLeftFill />
                 previous
-              </button>
-              <button className="button-reset main-card-quick main-card-button">
-                add to cart
               </button>
               <button
                 onClick={() => navigate(`products/${selectedData.handle}`)}
@@ -199,18 +200,7 @@ export default function Index() {
           </div>
         </div>
       )}
-
-      {/* <div style={{position: 'absolute', top: '0', left: '0'}}>
-        <label htmlFor="brightness">Brightness</label>
-        <input
-          type="range"
-          min="0"
-          max="2000"
-          onChange={(e) => {
-            setBrightness(e.target.value);
-          }}
-        />
-      </div> */}
+      <MainSceneAside setBrightness={setBrightness} />
     </div>
   );
 }
