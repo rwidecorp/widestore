@@ -62,14 +62,13 @@ export function Model({
   const cameraControlsRef = useRef();
 
   useEffect(() => {
-    setSelected('FLIK');
+    setSelected('Cumulus');
   }, []);
 
   useEffect(() => {
-    console.log(cameraControlsRef.current);
     // This will need to be refreshed each time the window updates due to not resetting the camera
     switch (selected) {
-      case 'FLIK':
+      case 'Cumulus':
         cameraControlsRef.current.setTarget(0.05, 0.711, 12.2, true);
         // On first render, rotate to the correct position
         if (isFirstRender) {
@@ -84,13 +83,13 @@ export function Model({
         } else {
         }
         break;
-      case 'BRIK':
+      case 'Cirrus':
         cameraControlsRef.current.setTarget(-0.3, 0.726, -12.2, true);
         break;
-      case 'SLEEK':
+      case 'Nimbus':
         cameraControlsRef.current.setTarget(-12.289, 0.712, 0.09, true);
         break;
-      case 'TRAK':
+      case 'Stratus':
         cameraControlsRef.current.setTarget(12.5, 0.692, -0.168, true);
         break;
       default:
@@ -122,24 +121,24 @@ export function Model({
       />
 
       <Bounds clip observe>
-        <CamController pos={[11.843, 0.692, -0.168]} name="TRAK" />
+        <CamController pos={[11.843, 0.692, -0.168]} name="Stratus" />
 
         <Trak />
       </Bounds>
       <Bounds clip observe>
-        <CamController pos={[-12.289, 0.712, 0.09]} name="SLEEK" />
+        <CamController pos={[-12.289, 0.712, 0.09]} name="Nimbus" />
 
         <Sleek />
       </Bounds>
       {/*  mouse 3 */}
       <Bounds clip observe>
-        <CamController pos={[-0.207, 0.711, 11.494]} name="FLIK" />
+        <CamController pos={[-0.207, 0.711, 11.494]} name="Cumulus" />
 
         <Flik />
       </Bounds>
       {/* mouse 4 */}
       <Bounds clip observe>
-        <CamController name="BRIK" />
+        <CamController name="Cirrus" />
 
         <Brik />
       </Bounds>
