@@ -28,7 +28,8 @@ export function HeaderMenu({menu, viewport}) {
 
   return (
     <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
+      {/* hide extra home button on mobile NOT DELETING YET */}
+      {/* {viewport === 'mobile' && (
         <NavLink
           end
           onClick={closeAside}
@@ -38,7 +39,7 @@ export function HeaderMenu({menu, viewport}) {
         >
           Home
         </NavLink>
-      )}
+      )} */}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 

@@ -26,21 +26,21 @@ export default function Index() {
 
   useEffect(() => {
     switch (selected) {
-      case 'FLIK':
-        setIsPrevious('SLEEK');
-        setIsNext('TRAK');
+      case 'Cumulus':
+        setIsPrevious('Nimbus');
+        setIsNext('Stratus');
         break;
-      case 'TRAK':
-        setIsPrevious('FLIK');
-        setIsNext('BRIK');
+      case 'Stratus':
+        setIsPrevious('Cumulus');
+        setIsNext('Cirrus');
         break;
-      case 'BRIK':
-        setIsPrevious('TRAK');
-        setIsNext('SLEEK');
+      case 'Cirrus':
+        setIsPrevious('Stratus');
+        setIsNext('Nimbus');
         break;
-      case 'SLEEK':
-        setIsPrevious('BRIK');
-        setIsNext('FLIK');
+      case 'Nimbus':
+        setIsPrevious('Cirrus');
+        setIsNext('Cumulus');
         break;
       default:
         break;
@@ -64,17 +64,11 @@ export default function Index() {
     setSelected(isPrevious);
   };
 
-  useEffect(() => {
-    if (selectedData) {
-      console.log(selectedData);
-    }
-  }, [selectedData]);
-
   return (
     <div className="index-container">
       <Canvas shadows>
         <ambientLight intensity={2.4} />
-        {selected === 'FLIK' && (
+        {selected === 'Cumulus' && (
           <>
             <pointLight
               position={[7, 10, 14]}
@@ -94,7 +88,7 @@ export default function Index() {
             />
           </>
         )}
-        {selected === 'TRAK' && (
+        {selected === 'Stratus' && (
           <>
             <pointLight
               position={[14, 10, -7]}
@@ -114,7 +108,7 @@ export default function Index() {
             />
           </>
         )}
-        {selected === 'BRIK' && (
+        {selected === 'Cirrus' && (
           <>
             <pointLight
               position={[-7, 10, -14]}
@@ -134,7 +128,7 @@ export default function Index() {
             />
           </>
         )}
-        {selected === 'SLEEK' && (
+        {selected === 'Nimbus' && (
           <>
             <pointLight
               position={[-14, 10, 7]}
@@ -176,26 +170,28 @@ export default function Index() {
               <button className="button-reset main-card-quick main-card-button cta-button">
                 <strong>add to cart</strong>
               </button>
-              <button
-                onClick={() => handlePreviousClick()}
-                className="button-reset main-card-prev main-card-button"
-              >
-                <BsCaretLeftFill />
-                previous
-              </button>
-              <button
-                onClick={() => navigate(`products/${selectedData.handle}`)}
-                className="button-reset main-card-quick main-card-button"
-              >
-                learn more
-              </button>
-              <button
-                onClick={() => handleNextClick()}
-                className="button-reset main-card-next main-card-button"
-              >
-                next
-                <BsCaretRightFill />
-              </button>
+              <div style={{display: 'flex'}}>
+                <button
+                  onClick={() => handlePreviousClick()}
+                  className="button-reset main-card-prev main-card-button"
+                >
+                  <BsCaretLeftFill />
+                  previous
+                </button>
+                <button
+                  onClick={() => navigate(`products/${selectedData.handle}`)}
+                  className="button-reset main-card-quick main-card-button"
+                >
+                  learn more
+                </button>
+                <button
+                  onClick={() => handleNextClick()}
+                  className="button-reset main-card-next main-card-button"
+                >
+                  next
+                  <BsCaretRightFill />
+                </button>
+              </div>
             </div>
           </div>
         </div>
