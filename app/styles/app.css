@@ -9,6 +9,7 @@
   --color-light: #dedede;
   --rose: #f72585ff;
   --rose-hover: #e90069;
+  --rose-active: #d40260;
   --grape: #7209b7ff;
   --zaffre: #3a0ca3ff;
   --neon-blue: #4361eeff;
@@ -845,6 +846,21 @@ aside li {
 .main-card-quick:hover,
 .main-card-view:hover {
   background-color: #77717e90;
+}
+
+.cta-button {
+  background-color: var(--rose);
+  border-radius: 16px;
+  margin-right: 0.5rem;
+  padding: 0.25rem 0.7rem;
+}
+
+.cta-button:hover {
+  background-color: var(--rose-hover);
+}
+
+.cta-button:active {
+  background-color: var(--rose-active);
 }
 
 .main-card-prev {
