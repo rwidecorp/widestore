@@ -909,10 +909,8 @@ aside li {
   justify-content: center;
   align-items: center;
   height: 38px;
-  width: 38px;
   background-color: var(--neon-blue);
-  border-radius: 50%;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1rem;
   /* margin-top: 5px; */
   color: white;
