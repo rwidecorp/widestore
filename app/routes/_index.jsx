@@ -1,9 +1,12 @@
 import {Canvas} from '@react-three/fiber';
 import {useLoaderData} from '@remix-run/react';
 import {Model} from '../assets/Main_menu_scene_with_mice.jsx';
-import {SoftShadows, Environment} from '@react-three/drei';
-import {useState} from 'react';
-import clouds from '../../public/cloud_env.hdr';
+import {SoftShadows, Loader} from '@react-three/drei';
+import {useEffect, useState} from 'react';
+import {BsCaretRightFill} from 'react-icons/bs';
+import {BsCaretLeftFill} from 'react-icons/bs';
+import {useNavigate} from '@remix-run/react';
+import MainSceneAside from '../components/MainSceneAside.jsx';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -14,18 +17,62 @@ export async function loader({context}) {
 
 export default function Index() {
   const {collection} = useLoaderData();
+  const navigate = useNavigate();
 
   const [selected, setSelected] = useState();
+  const [brightness, setBrightness] = useState(600);
+  const [isNext, setIsNext] = useState(false);
+  const [isPrevious, setIsPrevious] = useState(false);
+
+  useEffect(() => {
+    switch (selected) {
+      case 'Cumulus':
+        setIsPrevious('Nimbus');
+        setIsNext('Stratus');
+        break;
+      case 'Stratus':
+        setIsPrevious('Cumulus');
+        setIsNext('Cirrus');
+        break;
+      case 'Cirrus':
+        setIsPrevious('Stratus');
+        setIsNext('Nimbus');
+        break;
+      case 'Nimbus':
+        setIsPrevious('Cirrus');
+        setIsNext('Cumulus');
+        break;
+      default:
+        break;
+    }
+  }, [selected]);
+
+  const selectedData =
+    selected &&
+    collection.products.nodes.find(
+      (obj) => obj.handle === selected.toLowerCase(),
+    );
+
+  const handleNextClick = () => {
+    setIsNext(true);
+    setIsPrevious(false);
+    setSelected(isNext);
+  };
+  const handlePreviousClick = () => {
+    setIsPrevious(true);
+    setIsNext(false);
+    setSelected(isPrevious);
+  };
 
   return (
     <div className="index-container">
       <Canvas shadows>
-        <Environment files={clouds} background />
-        {selected === 'FLIK' && (
+        <ambientLight intensity={2.4} />
+        {selected === 'Cumulus' && (
           <>
             <pointLight
               position={[7, 10, 14]}
-              intensity={1000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -33,7 +80,7 @@ export default function Index() {
             />
             <pointLight
               position={[-7, 10, 14]}
-              intensity={2000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -41,7 +88,7 @@ export default function Index() {
             />
           </>
         )}
-        {selected === 'TRAK' && (
+        {selected === 'Stratus' && (
           <>
             <pointLight
               position={[14, 10, -7]}
@@ -61,7 +108,7 @@ export default function Index() {
             />
           </>
         )}
-        {selected === 'BRIK' && (
+        {selected === 'Cirrus' && (
           <>
             <pointLight
               position={[-7, 10, -14]}
@@ -81,7 +128,7 @@ export default function Index() {
             />
           </>
         )}
-        {selected === 'SLEEK' && (
+        {selected === 'Nimbus' && (
           <>
             <pointLight
               position={[-14, 10, 7]}
@@ -101,69 +148,55 @@ export default function Index() {
             />
           </>
         )}
-        {/* <pointLight
-          position={[0, 6, 0]}
-          intensity={400}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[0, 6, 15]}
-          intensity={200}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[0, 6, -15]}
-          intensity={200}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[15, 6, 0]}
-          intensity={200}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[15, 6, 5]}
-          intensity={400}
-          castShadow
-          color={'#4361ee'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[15, 6, -5]}
-          intensity={400}
-          castShadow
-          color={'#f72585'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <pointLight
-          position={[-15, 6, 0]}
-          intensity={200}
-          castShadow
-          color={'white'}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        /> */}
+
         <SoftShadows />
         <Model
           collection={collection}
           selected={selected}
           setSelected={setSelected}
+          isNext={isNext}
+          isPrevious={isPrevious}
+          setIsNext={setIsNext}
+          setIsPrevious={setIsPrevious}
         />
       </Canvas>
+      <Loader />
+      {selectedData && (
+        <div className="main-card-column">
+          <div className="main-card">
+            <h1>{selectedData.title}</h1>
+            <p style={{marginBottom: '24px'}}>{selectedData.description}</p>
+            <div className="main-card-button-container">
+              <button className="button-reset main-card-quick main-card-button cta-button">
+                <strong>add to cart</strong>
+              </button>
+              <div style={{display: 'flex'}}>
+                <button
+                  onClick={() => handlePreviousClick()}
+                  className="button-reset main-card-prev main-card-button"
+                >
+                  <BsCaretLeftFill />
+                  previous
+                </button>
+                <button
+                  onClick={() => navigate(`products/${selectedData.handle}`)}
+                  className="button-reset main-card-quick main-card-button"
+                >
+                  learn more
+                </button>
+                <button
+                  onClick={() => handleNextClick()}
+                  className="button-reset main-card-next main-card-button"
+                >
+                  next
+                  <BsCaretRightFill />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      <MainSceneAside setBrightness={setBrightness} />
     </div>
   );
 }
