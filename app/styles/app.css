@@ -905,7 +905,7 @@ aside li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #505050;
+  background-color: var(--header-background);
   border-radius: 15px;
   color: white;
   transition: 0.25s;
@@ -956,4 +956,32 @@ aside li {
 
 .link-hover:hover {
   text-decoration: none;
+}
+
+/* Contact page */
+
+.form-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 64px;
+  @media (max-width: 768px) {
+    margin-top: 24px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--header-background);
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 16px;
+  padding-bottom: 12px;
+  border-radius: 15px;
+  width: 80dvw;
+  @media (max-width: 768px) {
+    background-color: rgba(0, 0, 0, 0);
+  }
 }
