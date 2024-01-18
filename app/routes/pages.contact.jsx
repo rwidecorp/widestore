@@ -33,31 +33,9 @@ const Contact = () => {
   };
 
   return displayForm ? (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: '64px',
-      }}
-    >
+    <div className="form-div">
       <h1>Contact Support</h1>
-      <form
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: '#505050',
-          paddingLeft: '24px',
-          paddingRight: '24px',
-          paddingTop: '16px',
-          paddingBottom: '12px',
-          borderRadius: '15px',
-          width: '100%',
-        }}
-        ref={form}
-        onSubmit={sendEmail}
-      >
+      <form className="form" ref={form} onSubmit={sendEmail}>
         <label>Name</label>
         <input
           required
