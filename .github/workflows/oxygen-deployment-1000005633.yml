@@ -14,12 +14,12 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: 'lts/*'
           check-latest: true
 
       - name: Cache node modules
@@ -36,14 +36,14 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build and Publish to Oxygen
         id: deploy
         uses: shopify/oxygenctl-action@v4
         with:
           oxygen_deployment_token: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000005633 }}
-          build_command: "HYDROGEN_ASSET_BASE_URL=$OXYGEN_ASSET_BASE_URL npm run build"
+          build_command: "npm run build"
 
       # Create GitHub Deployment
       - name: Create GitHub Deployment
