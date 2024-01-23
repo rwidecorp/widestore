@@ -3,10 +3,9 @@ import {useLoaderData} from '@remix-run/react';
 import {Model} from '../assets/Main_menu_scene_with_mice.jsx';
 import {SoftShadows, Loader} from '@react-three/drei';
 import {useEffect, useState} from 'react';
-import {BsCaretRightFill} from 'react-icons/bs';
-import {BsCaretLeftFill} from 'react-icons/bs';
 import {useNavigate} from '@remix-run/react';
 import MainSceneAside from '../components/MainSceneAside.jsx';
+import MainSceneCard from '~/components/MainSceneCard.jsx';
 
 // loader fetches data before rendering the page
 export async function loader({context}) {
@@ -20,7 +19,7 @@ export default function Index() {
   const navigate = useNavigate();
 
   const [selected, setSelected] = useState();
-  const [brightness, setBrightness] = useState(600);
+  const [brightness, setBrightness] = useState(1000);
   const [isNext, setIsNext] = useState(false);
   const [isPrevious, setIsPrevious] = useState(false);
 
@@ -92,7 +91,7 @@ export default function Index() {
           <>
             <pointLight
               position={[14, 10, -7]}
-              intensity={1000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -100,7 +99,7 @@ export default function Index() {
             />
             <pointLight
               position={[14, 10, 7]}
-              intensity={2000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -112,7 +111,7 @@ export default function Index() {
           <>
             <pointLight
               position={[-7, 10, -14]}
-              intensity={1000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -120,7 +119,7 @@ export default function Index() {
             />
             <pointLight
               position={[7, 10, -14]}
-              intensity={2000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -132,7 +131,7 @@ export default function Index() {
           <>
             <pointLight
               position={[-14, 10, 7]}
-              intensity={1000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -140,7 +139,7 @@ export default function Index() {
             />
             <pointLight
               position={[-14, 10, -7]}
-              intensity={2000}
+              intensity={brightness}
               castShadow
               color={'white'}
               shadow-mapSize-width={1024}
@@ -161,41 +160,13 @@ export default function Index() {
         />
       </Canvas>
       <Loader />
-      {selectedData && (
-        <div className="main-card-column">
-          <div className="main-card">
-            <h1>{selectedData.title}</h1>
-            <p style={{marginBottom: '24px'}}>{selectedData.description}</p>
-            <div className="main-card-button-container">
-              <button className="button-reset main-card-quick main-card-button cta-button">
-                <strong>add to cart</strong>
-              </button>
-              <div style={{display: 'flex'}}>
-                <button
-                  onClick={() => handlePreviousClick()}
-                  className="button-reset main-card-prev main-card-button"
-                >
-                  <BsCaretLeftFill />
-                  previous
-                </button>
-                <button
-                  onClick={() => navigate(`products/${selectedData.handle}`)}
-                  className="button-reset main-card-quick main-card-button"
-                >
-                  learn more
-                </button>
-                <button
-                  onClick={() => handleNextClick()}
-                  className="button-reset main-card-next main-card-button"
-                >
-                  next
-                  <BsCaretRightFill />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <MainSceneCard
+        selectedData={selectedData}
+        handlePreviousClick={handlePreviousClick}
+        handleNextClick={handleNextClick}
+        navigate={navigate}
+      />
+
       <MainSceneAside setBrightness={setBrightness} />
     </div>
   );

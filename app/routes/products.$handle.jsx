@@ -1,17 +1,10 @@
 import {json} from '@shopify/remix-oxygen';
-import ProductOptions from '~/components/ProductOptions';
 import {useLoaderData} from '@remix-run/react';
-import {
-  Image,
-  Money,
-  ShopPayButton,
-  MediaFile,
-  ModelViewer,
-} from '@shopify/hydrogen-react';
-import {CartForm} from '@shopify/hydrogen';
+import {ModelViewer} from '@shopify/hydrogen-react';
 import ProductInfoContainer from '~/components/ProductInfoContainer';
 import AddToCartContainer from '~/components/AddToCartContainer';
 import {useState, useEffect} from 'react';
+import {isMobile, isSafari, isFirefox} from 'react-device-detect';
 
 export async function loader({params, context, request}) {
   const {handle} = params;
@@ -58,6 +51,7 @@ export default function ProductHandle() {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
+  const isBlacklisted = isMobile || isSafari || isFirefox;
 
   useEffect(() => {
     console.log({progress, loading, error});
@@ -69,32 +63,41 @@ export default function ProductHandle() {
   return (
     <section className="product-section">
       <div className="product-header-container">
-        <ModelViewer
-          data={media3d}
-          style={{
-            width: 0,
-            height: 0,
-          }}
-          onLoad={() => setLoading(false)}
-          onProgress={(e) => {
-            setProgress(e.detail.totalProgress);
-          }}
-        />
-
-        <model-viewer
-          src={media3d.sources.find((source) => source.format === 'glb').url}
-          camera-controls
-          style={{
-            width: '100vw',
-            height: '35vh',
-            minHeight: '400px',
-            maxHeight: '800px',
-          }}
-          ar
-          ar-modes="webxr scene-viewer quick-look"
-          environment-image={require('../../public/test-sphere.jpg')}
-          skybox-image={require('../../public/test-sphere-3.png')}
-        />
+        {isBlacklisted ? (
+          <div>
+            Sorry, this product is not available to view on mobile devices.
+          </div>
+        ) : (
+          <>
+            <ModelViewer
+              data={media3d}
+              style={{
+                width: 0,
+                height: 0,
+              }}
+              onLoad={() => setLoading(false)}
+              onProgress={(e) => {
+                setProgress(e.detail.totalProgress);
+              }}
+            />
+            <model-viewer
+              src={
+                media3d.sources.find((source) => source.format === 'glb').url
+              }
+              camera-controls
+              style={{
+                width: '100vw',
+                height: '35vh',
+                minHeight: '400px',
+                maxHeight: '800px',
+              }}
+              ar
+              ar-modes="webxr scene-viewer quick-look"
+              environment-image={require('../../public/test-sphere.jpg')}
+              skybox-image={require('../../public/test-sphere-3.png')}
+            />
+          </>
+        )}
       </div>
       <section className="main-content-container container">
         <ProductInfoContainer
