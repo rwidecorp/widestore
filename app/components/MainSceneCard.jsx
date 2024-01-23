@@ -8,7 +8,6 @@ function MainSceneCard({
   handleNextClick,
   navigate,
 }) {
-  console.log(selectedData);
   return (
     selectedData && (
       <div className="main-card-column">

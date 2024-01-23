@@ -29,7 +29,6 @@
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
-    "react-simply-carousel": "^9.1.1",
     "three": "^0.158.0"
   },
   "devDependencies": {

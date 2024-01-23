@@ -48,57 +48,68 @@ export const handle = {
 
 export default function ProductHandle() {
   const {product, selectedVariant, shop} = useLoaderData();
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const isBlacklisted = isMobile || isSafari || isFirefox;
 
-  useEffect(() => {
-    console.log({progress, loading, error});
-  }, [progress, loading, error]);
-
-  const media3d = product.media.nodes[1];
-  console.log(media3d);
+  const media3d = product.media.nodes.find(
+    (node) => node.mediaContentType === 'MODEL_3D',
+  );
+  const images = product.media.nodes.filter(
+    (node) => node.mediaContentType === 'IMAGE',
+  );
 
   return (
     <section className="product-section">
-      <div className="product-header-container">
-        {isBlacklisted ? (
-          <div>
-            Sorry, this product is not available to view on mobile devices.
-          </div>
-        ) : (
-          <>
-            <ModelViewer
-              data={media3d}
+      {isBlacklisted ? (
+        <div
+          style={{display: 'flex', whiteSpace: 'nowrap', overflowX: 'scroll'}}
+        >
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image.previewImage.url}
+              alt={image.previewImage.altText}
               style={{
-                width: 0,
-                height: 0,
-              }}
-              onLoad={() => setLoading(false)}
-              onProgress={(e) => {
-                setProgress(e.detail.totalProgress);
+                width: '100%',
+                borderRadius: 0,
+                maxWidth: '600px',
+                height: 'auto',
               }}
             />
-            <model-viewer
-              src={
-                media3d.sources.find((source) => source.format === 'glb').url
-              }
-              camera-controls
-              style={{
-                width: '100vw',
-                height: '35vh',
-                minHeight: '400px',
-                maxHeight: '800px',
-              }}
-              ar
-              ar-modes="webxr scene-viewer quick-look"
-              environment-image={require('../../public/test-sphere.jpg')}
-              skybox-image={require('../../public/test-sphere-3.png')}
-            />
-          </>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="product-header-container">
+          <ModelViewer
+            data={media3d}
+            style={{
+              width: 0,
+              height: 0,
+            }}
+            onLoad={() => setLoading(false)}
+            onProgress={(e) => {
+              setProgress(e.detail.totalProgress);
+            }}
+          />
+          <model-viewer
+            src={media3d.sources.find((source) => source.format === 'glb').url}
+            camera-controls
+            style={{
+              width: '100vw',
+              height: '35vh',
+              minHeight: '400px',
+              maxHeight: '800px',
+            }}
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            environment-image={require('../../public/test-sphere.jpg')}
+            skybox-image={require('../../public/test-sphere-3.png')}
+          />
+        </div>
+      )}
       <section className="main-content-container container">
         <ProductInfoContainer
           title={product.title}
@@ -124,6 +135,15 @@ const PRODUCT_QUERY = `#graphql
       title
       media(first: 100) {
         nodes {
+          mediaContentType
+          alt
+          previewImage {
+            altText
+            height
+            id
+            url
+            width
+          }
           ... on Model3d {
             mediaContentType
             __typename
