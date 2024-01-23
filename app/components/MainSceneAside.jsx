@@ -39,12 +39,13 @@ function MainSceneAside({setBrightness}) {
           type="range"
           min="0"
           max="2000"
-          defaultValue={600}
+          defaultValue={1000}
           onChange={(e) => {
             setBrightness(e.target.value);
           }}
         />
       </div>
+      ``
     </div>
   ) : (
     <div
