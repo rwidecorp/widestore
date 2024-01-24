@@ -23,7 +23,7 @@ export default function Index() {
   const [isNext, setIsNext] = useState(false);
   const [isPrevious, setIsPrevious] = useState(false);
 
-  console.log('successful deploy');
+  console.log('deploy test');
 
   useEffect(() => {
     switch (selected) {
