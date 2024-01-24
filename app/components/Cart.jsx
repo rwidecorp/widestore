@@ -138,7 +138,9 @@ function CartLineRemoveButton({lineIds}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button type="submit">Remove</button>
+      <button type="submit" className="button-reset aside-remove-btn">
+        Remove
+      </button>
     </CartForm>
   );
 }
@@ -158,6 +160,7 @@ function CartLineQuantity({line}) {
           disabled={quantity <= 1}
           name="decrease-quantity"
           value={prevQuantity}
+          className="button-reset sub-btn"
         >
           <span>&#8722; </span>
         </button>
@@ -168,6 +171,8 @@ function CartLineQuantity({line}) {
           aria-label="Increase quantity"
           name="increase-quantity"
           value={nextQuantity}
+          className="button-reset add-btn"
+          style={{color: 'black'}}
         >
           <span>&#43;</span>
         </button>

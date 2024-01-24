@@ -300,6 +300,26 @@ aside li {
   font-weight: 600;
   font-size: 1.2rem;
 }
+
+.aside-remove-btn {
+  height: 24px;
+  width: 72px;
+  border-radius: 4px;
+  background-color: var(--rose);
+}
+
+.sub-btn {
+  width: 25px;
+  border-radius: 4px;
+
+  background-color: var(--button-dark);
+}
+.add-btn {
+  width: 25px;
+  border-radius: 4px;
+  background-color: var(--color-light);
+}
+
 /*
 * --------------------------------------------------
 * components/Search
