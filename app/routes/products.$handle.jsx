@@ -5,6 +5,7 @@ import ProductInfoContainer from '~/components/ProductInfoContainer';
 import AddToCartContainer from '~/components/AddToCartContainer';
 import {useState, useEffect} from 'react';
 import {isMobile, isSafari, isFirefox} from 'react-device-detect';
+import Carousel from '../components/Carousel.jsx';
 
 export async function loader({params, context, request}) {
   const {handle} = params;
@@ -64,23 +65,7 @@ export default function ProductHandle() {
   return (
     <section className="product-section">
       {isBlacklisted ? (
-        <div
-          style={{display: 'flex', whiteSpace: 'nowrap', overflowX: 'scroll'}}
-        >
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={image.previewImage.url}
-              alt={image.previewImage.altText}
-              style={{
-                width: '100%',
-                borderRadius: 0,
-                maxWidth: '600px',
-                height: 'auto',
-              }}
-            />
-          ))}
-        </div>
+        <Carousel images={images} />
       ) : (
         <div className="product-header-container">
           <ModelViewer
