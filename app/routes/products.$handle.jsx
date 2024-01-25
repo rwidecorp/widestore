@@ -49,10 +49,8 @@ export const handle = {
 
 export default function ProductHandle() {
   const {product, selectedVariant, shop} = useLoaderData();
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [error, setError] = useState(null);
   const isBlacklisted = isMobile || isSafari || isFirefox;
 
   const media3d = product.media.nodes.find(
