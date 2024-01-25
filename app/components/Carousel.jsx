@@ -12,14 +12,14 @@ const Carousel = ({images}) => {
     setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  const carouselStyle = {
+  const carouselContainer = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   };
 
-  const slideStyle = {
+  const carouselSlide = {
     width: '100%',
     backgroundImage: `url(${images[currentSlide]})`,
     backgroundSize: 'cover',
@@ -27,13 +27,13 @@ const Carousel = ({images}) => {
     transition: 'background-image 0.5s ease-in-out',
   };
 
-  const imageStyle = {
+  const carouselImage = {
     width: '100%',
     height: 'auto',
     objectFit: 'cover',
   };
 
-  const buttonStyle = {
+  const carouselButton = {
     position: 'absolute',
     top: '50%',
     transform: 'translateY(-50%)',
@@ -42,36 +42,34 @@ const Carousel = ({images}) => {
     borderRadius: '25px',
   };
 
-  const prevButtonStyle = {
-    ...buttonStyle,
+  const carouselPrevButton = {
+    ...carouselButton,
     left: '10px',
   };
 
-  const nextButtonStyle = {
-    ...buttonStyle,
+  const carouselNextButton = {
+    ...carouselButton,
     right: '10px',
   };
 
   return (
-    <div style={carouselStyle}>
+    <div style={carouselContainer} className="carousel-container">
       <button
-        style={prevButtonStyle}
         onClick={prevSlide}
-        className="button-reset main-card-next main-card-button"
+        className="button-reset carousel-button carousel-prev-button "
       >
         <BsCaretLeftFill />
       </button>
-      <div style={slideStyle}>
+      <div className="carousel-slide">
         <img
           src={images[currentSlide].previewImage.url}
           alt={images[currentSlide].alt}
-          style={imageStyle}
+          className="carousel-image"
         />
       </div>
       <button
-        style={nextButtonStyle}
         onClick={nextSlide}
-        className="button-reset main-card-next main-card-button"
+        className="button-reset carousel-button carousel-next-button"
       >
         <BsCaretRightFill />
       </button>
