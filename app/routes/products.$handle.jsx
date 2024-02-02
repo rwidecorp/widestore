@@ -62,7 +62,7 @@ export default function ProductHandle() {
 
   return (
     <section className="product-section">
-      {isBlacklisted ? (
+      {isBlacklisted || !media3d ? (
         <Carousel images={images} />
       ) : (
         <div className="product-header-container">
