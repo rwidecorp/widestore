@@ -15,26 +15,13 @@ function MainSceneCard({
           <h1>{selectedData.title}</h1>
           <p style={{marginBottom: '24px'}}>{selectedData.description}</p>
           <div className="main-card-button-container">
-            <CartForm
-              route="/cart"
-              inputs={{
-                lines: [
-                  {
-                    merchandiseId: selectedData.variants.nodes[0].id,
-                  },
-                ],
+            <div
+              style={{
+                display: 'flex',
+                marginRight: '0.5rem',
+                marginBottom: '1rem',
               }}
-              action={CartForm.ACTIONS.LinesAdd}
             >
-              <button
-                className="button-reset main-card-quick main-card-button cta-button"
-                type="submit"
-              >
-                <strong>add to cart</strong>
-              </button>
-            </CartForm>
-
-            <div style={{display: 'flex'}}>
               <button
                 onClick={() => handlePreviousClick()}
                 className="button-reset main-card-prev main-card-button"
@@ -56,6 +43,24 @@ function MainSceneCard({
                 <BsCaretRightFill />
               </button>
             </div>
+            <CartForm
+              route="/cart"
+              inputs={{
+                lines: [
+                  {
+                    merchandiseId: selectedData.variants.nodes[0].id,
+                  },
+                ],
+              }}
+              action={CartForm.ACTIONS.LinesAdd}
+            >
+              <button
+                className="button-reset main-card-quick main-card-button cta-button"
+                type="submit"
+              >
+                <strong>add to cart</strong>
+              </button>
+            </CartForm>
           </div>
         </div>
       </div>
