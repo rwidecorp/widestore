@@ -6,11 +6,12 @@ Command: npx gltfjsx@6.2.16 public/brik.glb
 import React, {useRef} from 'react';
 import {useGLTF} from '@react-three/drei';
 
-export function Brik(props) {
+export function Brik({handleSetSelected}) {
   const {nodes, materials} = useGLTF('/brik.glb');
   return (
-    <group {...props} dispose={null}>
+    <group dispose={null}>
       <mesh
+        onClick={() => handleSetSelected('Cirrus', 'Nimbus', 'Stratus')}
         geometry={nodes['3MF_Object'].geometry}
         material={materials.BlackPlastic}
         position={[2.197, 0, -12.123]}

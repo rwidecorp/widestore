@@ -6,11 +6,12 @@ Command: npx gltfjsx@6.2.16 public/sleek.glb
 import React, {useRef} from 'react';
 import {useGLTF} from '@react-three/drei';
 
-export function Sleek(props) {
+export function Sleek({handleSetSelected}) {
   const {nodes, materials} = useGLTF('/sleek.glb');
   return (
-    <group {...props} dispose={null}>
+    <group dispose={null}>
       <mesh
+        onClick={() => handleSetSelected('Nimbus', 'Cumulus', 'Cirrus')}
         geometry={nodes['3MF_Object003'].geometry}
         material={materials.BlackPlastic}
         position={[-12.32, 0.023, -1.64]}

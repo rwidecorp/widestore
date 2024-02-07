@@ -783,10 +783,8 @@ aside li {
 .cta-button {
   background-color: var(--rose);
   border-radius: 16px;
-  margin-right: 0.5rem;
   padding: 0.25rem 0.7rem;
   @media screen and (max-width: 790px) {
-    margin-bottom: 1rem;
   }
 }
 

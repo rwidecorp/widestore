@@ -22,13 +22,11 @@ const CamController = ({name}) => {
 };
 
 export function Model({
-  collection,
   selected,
   setSelected,
-  setIsNext,
-  setIsPrevious,
   isNext,
   isPrevious,
+  handleSetSelected,
 }) {
   const {nodes, materials} = useGLTF('/room_with_mice.glb');
   const [isFirstRender, setIsFirstRender] = useState(true);
@@ -123,24 +121,24 @@ export function Model({
       <Bounds clip observe>
         <CamController pos={[11.843, 0.692, -0.168]} name="Stratus" />
 
-        <Trak />
+        <Trak handleSetSelected={handleSetSelected} />
       </Bounds>
       <Bounds clip observe>
         <CamController pos={[-12.289, 0.712, 0.09]} name="Nimbus" />
 
-        <Sleek />
+        <Sleek handleSetSelected={handleSetSelected} />
       </Bounds>
       {/*  mouse 3 */}
       <Bounds clip observe>
         <CamController pos={[-0.207, 0.711, 11.494]} name="Cumulus" />
 
-        <Flik />
+        <Flik handleSetSelected={handleSetSelected} />
       </Bounds>
       {/* mouse 4 */}
       <Bounds clip observe>
         <CamController name="Cirrus" />
 
-        <Brik />
+        <Brik handleSetSelected={handleSetSelected} />
       </Bounds>
 
       <Cylinder />
