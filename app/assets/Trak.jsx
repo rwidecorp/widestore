@@ -6,11 +6,12 @@ Command: npx gltfjsx@6.2.16 public/trak.glb
 import React, {useRef} from 'react';
 import {useGLTF} from '@react-three/drei';
 
-export function Trak(props) {
+export function Trak({handleSetSelected}) {
   const {nodes, materials} = useGLTF('/trak.glb');
   return (
-    <group {...props} dispose={null}>
+    <group dispose={null}>
       <mesh
+        onClick={() => handleSetSelected('Stratus', 'Cirrus', 'Cumulus')}
         geometry={nodes['3MF_Object002'].geometry}
         material={materials.BlackPlastic}
         position={[11.955, 0, 0.937]}

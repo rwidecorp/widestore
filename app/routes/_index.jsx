@@ -23,7 +23,14 @@ export default function Index() {
   const [isNext, setIsNext] = useState(false);
   const [isPrevious, setIsPrevious] = useState(false);
 
-  console.log('deploy success');
+  useEffect(() => {
+    console.log({
+      selected,
+      brightness,
+      isNext,
+      isPrevious,
+    });
+  }, [selected, brightness, isNext, isPrevious]);
 
   useEffect(() => {
     switch (selected) {
@@ -59,10 +66,18 @@ export default function Index() {
     setIsPrevious(false);
     setSelected(isNext);
   };
+
   const handlePreviousClick = () => {
     setIsPrevious(true);
     setIsNext(false);
     setSelected(isPrevious);
+  };
+
+  const handleSetSelected = (clickedItem, nextItem, prevItem) => {
+    console.log('handleSetSelected');
+    setSelected(clickedItem);
+    setIsNext(nextItem);
+    setIsPrevious(prevItem);
   };
 
   return (
@@ -159,6 +174,7 @@ export default function Index() {
           isPrevious={isPrevious}
           setIsNext={setIsNext}
           setIsPrevious={setIsPrevious}
+          handleSetSelected={handleSetSelected}
         />
       </Canvas>
       <Loader />
