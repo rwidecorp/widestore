@@ -10,7 +10,6 @@ export default async function handleRequest(
   remixContext,
 ) {
   const {nonce, header, NonceProvider} = createContentSecurityPolicy({
-
     scriptSrc: [
       "'self'",
       'https://unpkg.com',
@@ -40,7 +39,6 @@ export default async function handleRequest(
       "'unsafe-eval'",
       "'unsafe-inline'",
       '*',
-
     ],
   });
 

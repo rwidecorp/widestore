@@ -43,7 +43,7 @@ jobs:
         uses: shopify/oxygenctl-action@v4
         with:
           oxygen_deployment_token: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000005633 }}
-          build_command: "npm run build"
+          build_command: 'npm run build'
 
       # Create GitHub Deployment
       - name: Create GitHub Deployment
@@ -54,4 +54,3 @@ jobs:
           environment: 'preview'
           preview_url: ${{ steps.deploy.outputs.url }}
           description: ${{ github.event.head_commit.message }}
-        
