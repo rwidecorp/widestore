@@ -1,5 +1,6 @@
 import {ShopPayButton, Money} from '@shopify/hydrogen-react';
 import {CartForm} from '@shopify/hydrogen';
+import {FaShippingFast} from 'react-icons/fa';
 
 function AddToCartContainer({selectedVariant, shop}) {
   return (
@@ -14,7 +15,16 @@ function AddToCartContainer({selectedVariant, shop}) {
           marginBottom: '4px',
         }}
       />
-      <p style={{fontSize: '0.9rem', marginBottom: '24px', color: '#c0c0c0'}}>
+      <p
+        style={{
+          fontSize: '0.9rem',
+          marginBottom: '24px',
+          color: '#c0c0c0',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <FaShippingFast style={{marginRight: '0.5em'}} />
         Typically ships in 1-3 business days.
       </p>
       <div className="action-buttons">
