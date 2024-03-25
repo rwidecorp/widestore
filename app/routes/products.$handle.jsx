@@ -3,9 +3,10 @@ import {useLoaderData} from '@remix-run/react';
 import {ModelViewer} from '@shopify/hydrogen-react';
 import ProductInfoContainer from '~/components/ProductInfoContainer';
 import AddToCartContainer from '~/components/AddToCartContainer';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {isMobile, isSafari, isFirefox} from 'react-device-detect';
 import Carousel from '../components/Carousel.jsx';
+import TechSpecs from '~/components/TechSpecs.jsx';
 
 export async function loader({params, context, request}) {
   const {handle} = params;
@@ -15,7 +16,6 @@ export async function loader({params, context, request}) {
   // set selected options from the query string
   searchParams.forEach((value, name) => {
     selectedOptions.push({name, value});
-    console.log(name, value);
   });
 
   const {shop, product} = await context.storefront.query(PRODUCT_QUERY, {
@@ -96,12 +96,14 @@ export default function ProductHandle() {
       <section className="main-content-container container">
         <ProductInfoContainer
           title={product.title}
+          subtitle={product.subtitle}
+          description={product.description}
           selectedVariant={selectedVariant}
         />
 
         <AddToCartContainer shop={shop} selectedVariant={selectedVariant} />
       </section>
-      <section className="tech-specs-section"></section>
+      <TechSpecs specsJson={product.metafield.value} />
     </section>
   );
 }
@@ -156,6 +158,12 @@ const PRODUCT_QUERY = `#graphql
       vendor
       description
       descriptionHtml
+      metafield(namespace: "custom", key:"tech_specs" ) {
+        value
+      }
+      subtitle: metafield(namespace: "custom", key:"subtitle" ) {
+        value
+      }
       featuredImage {
         id
         url

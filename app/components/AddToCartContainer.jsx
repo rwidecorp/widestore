@@ -1,14 +1,22 @@
-import {
-  Image,
-  ShopPayButton,
-  MediaFile,
-  ModelViewer,
-} from '@shopify/hydrogen-react';
+import {ShopPayButton, Money} from '@shopify/hydrogen-react';
 import {CartForm} from '@shopify/hydrogen';
 
 function AddToCartContainer({selectedVariant, shop}) {
   return (
     <div className="customize-and-add-to-cart-container column">
+      <Money
+        withoutTrailingZeros
+        data={selectedVariant.price}
+        style={{
+          marginBottom: '1rem',
+          fontSize: '1.25rem',
+          fontWeight: 'bolder',
+          marginBottom: '4px',
+        }}
+      />
+      <p style={{fontSize: '0.9rem', marginBottom: '24px', color: '#c0c0c0'}}>
+        Typically ships in 1-3 business days.
+      </p>
       <div className="action-buttons">
         <ShopPayButton
           storeDomain={shop.primaryDomain.url}

@@ -2,6 +2,10 @@ import {BsCaretRightFill} from 'react-icons/bs';
 import {BsCaretLeftFill} from 'react-icons/bs';
 import {CartForm} from '@shopify/hydrogen';
 
+const handleDescriptionText = (description) => {
+  return `${description.split('.')[0]}.`;
+};
+
 function MainSceneCard({
   selectedData,
   handlePreviousClick,
@@ -13,7 +17,9 @@ function MainSceneCard({
       <div className="main-card-column">
         <div className="main-card">
           <h1>{selectedData.title}</h1>
-          <p style={{marginBottom: '24px'}}>{selectedData.description}</p>
+          <p style={{marginBottom: '24px'}}>
+            {handleDescriptionText(selectedData.description)}
+          </p>
           <div className="main-card-button-container">
             <div
               style={{
